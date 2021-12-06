@@ -1,0 +1,31 @@
+--- src/vde_switch/datasock.c.orig	2021-11-18 11:52:32.000000000 -0500
++++ src/vde_switch/datasock.c	2021-11-18 12:11:41.000000000 -0500
+@@ -15,6 +15,7 @@
+ #include <stdlib.h>
+ #include <stdint.h>
+ #include <libgen.h>
++#include <sched.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/ioctl.h>
+@@ -87,12 +88,17 @@
+ 
+ static int send_datasock(int fd_ctl, int fd_data, void *packet, int len, int port)
+ {
++retry:
+ 	if (send(fd_data, packet, len, 0) < 0) {
+ 		int rv=errno;
+-		if(rv != EAGAIN && rv != EWOULDBLOCK) 
+-			printlog(LOG_WARNING,"send_sockaddr port %d: %s",port,strerror(errno));
++		if(rv == ENOBUFS) {
++				sched_yield();
++				goto retry;
++		} else if(rv != EAGAIN && rv != EWOULDBLOCK)
++	                        printlog(LOG_WARNING,"send_sockaddr port %d: %s",port,strerror(errno));
++ 
+ 		else
+-			rv=EWOULDBLOCK;
++				rv=EWOULDBLOCK;
+ 		return -rv;
+ 	}
+ 	return 0;
