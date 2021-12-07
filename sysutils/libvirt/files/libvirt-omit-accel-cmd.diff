@@ -1,0 +1,13 @@
+diff --git a/src/qemu/qemu_command.c b/src/qemu/qemu_command.c
+index c47998aabd..cae7bd3dbd 100644
+--- a/src/qemu/qemu_command.c
++++ b/src/qemu/qemu_command.c
+@@ -10715,7 +10715,7 @@ qemuBuildCommandLine(virQEMUDriver *driver,
+     if (qemuBuildMachineCommandLine(cmd, cfg, def, qemuCaps, priv) < 0)
+         return NULL;
+ 
+-    qemuBuildAccelCommandLine(cmd, def);
++    // qemuBuildAccelCommandLine(cmd, def);
+ 
+     qemuBuildTSEGCommandLine(cmd, def);
+ 
