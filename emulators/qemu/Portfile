@@ -6,10 +6,11 @@ PortGroup compiler_blacklist_versions 1.0
 ## RUN WITH e.g.: sudo /opt/qemu/bin/qemu-system-x86_64 -m 4096 -accel hvf -cdrom ~/ISO/Fedora-Workstation-Live-x86_64-35-1.2.iso -netdev vmnet-shared,id=net0,dhcpstart=10.65.0.1,dhcpend=10.65.255.254,subnet-mask=255.255.0.0 -device virtio-net-pci,netdev=net0
 
 # https://trac.macports.org/ticket/58700
-PortGroup               github 1.0
+PortGroup legacysupport 1.0
+PortGroup github 1.0
 
 name                    qemu
-version                 6.2.0-99fc-git
+version                 6.2.0-rc4
 revision                0
 categories              emulators
 license                 GPL-2+
@@ -23,21 +24,20 @@ long_description        QEMU is a generic and open source machine emulator. \
                         different machine. By using dynamic translation, it \
                         achieves very good performance.
 
-homepage               https://github.com/qemu/qemu
-master_sites           https://github.com/qemu/qemu/tarball/99fc08366b06282614daeda989d2fde6ab8a707f
-fetch.type             git
-git.url                https://github.com/qemu/qemu.git
-git.branch             99fc08366b06282614daeda989d2fde6ab8a707f
+homepage               https://qemu.org
+master_sites           https://download.qemu.org/
+# fetch.type             git
+# git.url                https://github.com/qemu/qemu.git
+# git.branch             99fc08366b06282614daeda989d2fde6ab8a707f
 
-
-# use_bzip2               yes
+use_xz                  yes
 
 patch.pre_args          -p1
 patchfiles              vmnet-framework-v5.patch
 
-checksums               rmd160  738232b0f9406143cd3359e68c5d46c879ac99e7 \
-                        sha256  a55672078e4bdf8f74e1f86168eef41c2afd66eb5dc96d58284923ef0f52e35b \
-                        size    31710044
+checksums               rmd160  f84124beff330de823b04cd324649af914132d59 \
+                        sha256  b68f3af16f130ed4b62392773ebf5aedde9674bf6d3e1a77ec8aca9a498ea7dd \
+                        size    115681232
 
 depends_build           port:texinfo \
                         port:libtool \
