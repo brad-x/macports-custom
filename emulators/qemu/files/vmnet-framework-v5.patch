@@ -139,10 +139,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  scripts/meson-buildoptions.sh | 3 +++
  3 files changed, 9 insertions(+)
 
-diff --git a/meson.build b/meson.build
+diff --git meson.build meson.build
 index 2ece4fe088..202e04af31 100644
---- a/meson.build
-+++ b/meson.build
+--- meson.build
++++ meson.build
 @@ -477,6 +477,8 @@ if cocoa.found() and get_option('gtk').enabled()
    error('Cocoa and GTK+ cannot be enabled at the same time')
  endif
@@ -168,10 +168,10 @@ index 2ece4fe088..202e04af31 100644
  summary_info += {'netmap support':    have_netmap}
  summary_info += {'l2tpv3 support':    have_l2tpv3}
  summary_info += {'Linux AIO support': libaio}
-diff --git a/meson_options.txt b/meson_options.txt
+diff --git meson_options.txt meson_options.txt
 index 411952bc91..bdcd9674ea 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
+--- meson_options.txt
++++ meson_options.txt
 @@ -147,6 +147,8 @@ option('netmap', type : 'feature', value : 'auto',
         description: 'netmap network backend support')
  option('vde', type : 'feature', value : 'auto',
@@ -181,10 +181,10 @@ index 411952bc91..bdcd9674ea 100644
  option('virglrenderer', type : 'feature', value : 'auto',
         description: 'virgl rendering support')
  option('vnc', type : 'feature', value : 'auto',
-diff --git a/scripts/meson-buildoptions.sh b/scripts/meson-buildoptions.sh
+diff --git scripts/meson-buildoptions.sh scripts/meson-buildoptions.sh
 index 45e1f2e20d..f75375c795 100644
---- a/scripts/meson-buildoptions.sh
-+++ b/scripts/meson-buildoptions.sh
+--- scripts/meson-buildoptions.sh
++++ scripts/meson-buildoptions.sh
 @@ -81,6 +81,7 @@ meson_options_help() {
    printf "%s\n" '  u2f             U2F emulation support'
    printf "%s\n" '  usb-redir       libusbredir support'
@@ -243,10 +243,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  create mode 100644 net/vmnet-shared.c
  create mode 100644 net/vmnet_int.h
 
-diff --git a/net/clients.h b/net/clients.h
+diff --git net/clients.h net/clients.h
 index 92f9b59aed..c9157789f2 100644
---- a/net/clients.h
-+++ b/net/clients.h
+--- net/clients.h
++++ net/clients.h
 @@ -63,4 +63,15 @@ int net_init_vhost_user(const Netdev *netdev, const char *name,
  
  int net_init_vhost_vdpa(const Netdev *netdev, const char *name,
@@ -263,10 +263,10 @@ index 92f9b59aed..c9157789f2 100644
 +#endif /* CONFIG_VMNET */
 +
  #endif /* QEMU_NET_CLIENTS_H */
-diff --git a/net/meson.build b/net/meson.build
+diff --git net/meson.build net/meson.build
 index 847bc2ac85..00a88c4951 100644
---- a/net/meson.build
-+++ b/net/meson.build
+--- net/meson.build
++++ net/meson.build
 @@ -42,4 +42,11 @@ softmmu_ss.add(when: 'CONFIG_POSIX', if_true: files(tap_posix))
  softmmu_ss.add(when: 'CONFIG_WIN32', if_true: files('tap-win32.c'))
  softmmu_ss.add(when: 'CONFIG_VHOST_NET_VDPA', if_true: files('vhost-vdpa.c'))
@@ -279,10 +279,10 @@ index 847bc2ac85..00a88c4951 100644
 +)
 +softmmu_ss.add(when: vmnet, if_true: vmnet_files)
  subdir('can')
-diff --git a/net/net.c b/net/net.c
+diff --git net/net.c net/net.c
 index f0d14dbfc1..1dbb64b935 100644
---- a/net/net.c
-+++ b/net/net.c
+--- net/net.c
++++ net/net.c
 @@ -1021,6 +1021,11 @@ static int (* const net_client_init_fun[NET_CLIENT_DRIVER__MAX])(
  #ifdef CONFIG_L2TPV3
          [NET_CLIENT_DRIVER_L2TPV3]    = net_init_l2tpv3,
@@ -307,11 +307,11 @@ index f0d14dbfc1..1dbb64b935 100644
  #endif
      };
  
-diff --git a/net/vmnet-bridged.m b/net/vmnet-bridged.m
+diff --git net/vmnet-bridged.m net/vmnet-bridged.m
 new file mode 100644
 index 0000000000..4e42a90391
 --- /dev/null
-+++ b/net/vmnet-bridged.m
++++ net/vmnet-bridged.m
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet-bridged.m
@@ -338,11 +338,11 @@ index 0000000000..4e42a90391
 +  error_setg(errp, "vmnet-bridged is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet-common.m b/net/vmnet-common.m
+diff --git net/vmnet-common.m net/vmnet-common.m
 new file mode 100644
 index 0000000000..532d152840
 --- /dev/null
-+++ b/net/vmnet-common.m
++++ net/vmnet-common.m
 @@ -0,0 +1,20 @@
 +/*
 + * vmnet-common.m - network client wrapper for Apple vmnet.framework
@@ -364,11 +364,11 @@ index 0000000000..532d152840
 +
 +#include <vmnet/vmnet.h>
 +
-diff --git a/net/vmnet-host.c b/net/vmnet-host.c
+diff --git net/vmnet-host.c net/vmnet-host.c
 new file mode 100644
 index 0000000000..4a5ef99dc7
 --- /dev/null
-+++ b/net/vmnet-host.c
++++ net/vmnet-host.c
 @@ -0,0 +1,24 @@
 +/*
 + * vmnet-host.c
@@ -394,11 +394,11 @@ index 0000000000..4a5ef99dc7
 +  error_setg(errp, "vmnet-host is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet-shared.c b/net/vmnet-shared.c
+diff --git net/vmnet-shared.c net/vmnet-shared.c
 new file mode 100644
 index 0000000000..f8c4a4f3b8
 --- /dev/null
-+++ b/net/vmnet-shared.c
++++ net/vmnet-shared.c
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet-shared.c
@@ -425,11 +425,11 @@ index 0000000000..f8c4a4f3b8
 +  error_setg(errp, "vmnet-shared is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet_int.h b/net/vmnet_int.h
+diff --git net/vmnet_int.h net/vmnet_int.h
 new file mode 100644
 index 0000000000..c5982259a4
 --- /dev/null
-+++ b/net/vmnet_int.h
++++ net/vmnet_int.h
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet_int.h
@@ -456,10 +456,10 @@ index 0000000000..c5982259a4
 +
 +
 +#endif /* VMNET_INT_H */
-diff --git a/qapi/net.json b/qapi/net.json
+diff --git qapi/net.json qapi/net.json
 index 7fab2e7cd8..665ef82a0d 100644
---- a/qapi/net.json
-+++ b/qapi/net.json
+--- qapi/net.json
++++ qapi/net.json
 @@ -452,6 +452,117 @@
      '*vhostdev':     'str',
      '*queues':       'int' } }
@@ -646,10 +646,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet_int.h    |  23 ++++
  3 files changed, 399 insertions(+), 4 deletions(-)
 
-diff --git a/net/vmnet-common.m b/net/vmnet-common.m
+diff --git net/vmnet-common.m net/vmnet-common.m
 index 532d152840..b058e1b846 100644
---- a/net/vmnet-common.m
-+++ b/net/vmnet-common.m
+--- net/vmnet-common.m
++++ net/vmnet-common.m
 @@ -10,6 +10,8 @@
   */
  
@@ -967,10 +967,10 @@ index 532d152840..b058e1b846 100644
 +        g_free(s->iov_buf[i].iov_base);
 +    }
 +}
-diff --git a/net/vmnet-shared.c b/net/vmnet-shared.c
+diff --git net/vmnet-shared.c net/vmnet-shared.c
 index f8c4a4f3b8..b27ada3219 100644
---- a/net/vmnet-shared.c
-+++ b/net/vmnet-shared.c
+--- net/vmnet-shared.c
++++ net/vmnet-shared.c
 @@ -10,16 +10,83 @@
  
  #include "qemu/osdep.h"
@@ -1059,10 +1059,10 @@ index f8c4a4f3b8..b27ada3219 100644
 +    return vmnet_if_create(nc, if_desc, errp, NULL);
  }
 +
-diff --git a/net/vmnet_int.h b/net/vmnet_int.h
+diff --git net/vmnet_int.h net/vmnet_int.h
 index c5982259a4..3979fe4678 100644
---- a/net/vmnet_int.h
-+++ b/net/vmnet_int.h
+--- net/vmnet_int.h
++++ net/vmnet_int.h
 @@ -16,10 +16,33 @@
  
  #include <vmnet/vmnet.h>
@@ -1121,10 +1121,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet-host.c | 99 +++++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 93 insertions(+), 6 deletions(-)
 
-diff --git a/net/vmnet-host.c b/net/vmnet-host.c
+diff --git net/vmnet-host.c net/vmnet-host.c
 index 4a5ef99dc7..f7dbd3f9bf 100644
---- a/net/vmnet-host.c
-+++ b/net/vmnet-host.c
+--- net/vmnet-host.c
++++ net/vmnet-host.c
 @@ -9,16 +9,103 @@
   */
  
@@ -1259,10 +1259,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet-bridged.m | 98 ++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 92 insertions(+), 6 deletions(-)
 
-diff --git a/net/vmnet-bridged.m b/net/vmnet-bridged.m
+diff --git net/vmnet-bridged.m net/vmnet-bridged.m
 index 4e42a90391..3c9da9dc8b 100644
---- a/net/vmnet-bridged.m
-+++ b/net/vmnet-bridged.m
+--- net/vmnet-bridged.m
++++ net/vmnet-bridged.m
 @@ -10,16 +10,102 @@
  
  #include "qemu/osdep.h"
@@ -1396,10 +1396,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  qemu-options.hx | 25 +++++++++++++++++++++++++
  1 file changed, 25 insertions(+)
 
-diff --git a/qemu-options.hx b/qemu-options.hx
+diff --git qemu-options.hx qemu-options.hx
 index 7749f59300..350d43bbc0 100644
---- a/qemu-options.hx
-+++ b/qemu-options.hx
+--- qemu-options.hx
++++ qemu-options.hx
 @@ -2677,6 +2677,25 @@ DEF("netdev", HAS_ARG, QEMU_OPTION_netdev,
  #ifdef __linux__
      "-netdev vhost-vdpa,id=str,vhostdev=/path/to/dev\n"
