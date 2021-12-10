@@ -2,16 +2,14 @@
 
 PortSystem 1.0
 PortGroup compiler_blacklist_versions 1.0
+PortGroup legacysupport 1.1
 
-## RUN WITH e.g.: sudo /opt/qemu/bin/qemu-system-x86_64 -m 4096 -accel hvf -cdrom ~/ISO/Fedora-Workstation-Live-x86_64-35-1.2.iso -netdev vmnet-shared,id=net0,dhcpstart=10.65.0.1,dhcpend=10.65.255.254,subnet-mask=255.255.0.0 -device virtio-net-pci,netdev=net0
-
-# https://trac.macports.org/ticket/58700
-PortGroup legacysupport 1.0
-PortGroup github 1.0
+# fdopendir
+legacysupport.newest_darwin_requires_legacy 13
 
 name                    qemu
 version                 6.2.0-rc4
-revision                0
+revision                1
 categories              emulators
 license                 GPL-2+
 platforms               darwin
@@ -24,16 +22,9 @@ long_description        QEMU is a generic and open source machine emulator. \
                         different machine. By using dynamic translation, it \
                         achieves very good performance.
 
-homepage               https://qemu.org
-master_sites           https://download.qemu.org/
-# fetch.type             git
-# git.url                https://github.com/qemu/qemu.git
-# git.branch             99fc08366b06282614daeda989d2fde6ab8a707f
-
+homepage                https://www.qemu.org
+master_sites            https://download.qemu.org/
 use_xz                  yes
-
-patch.pre_args          -p1
-patchfiles              vmnet-framework-v5.patch
 
 checksums               rmd160  f84124beff330de823b04cd324649af914132d59 \
                         sha256  b68f3af16f130ed4b62392773ebf5aedde9674bf6d3e1a77ec8aca9a498ea7dd \
@@ -41,24 +32,43 @@ checksums               rmd160  f84124beff330de823b04cd324649af914132d59 \
 
 depends_build           port:texinfo \
                         port:libtool \
+                        port:meson \
                         port:ninja \
                         port:pkgconfig \
                         port:py39-sphinx
 
-# python/perl5 is only used for build scripts, no linking
-depends_build-append    port:python39 \
-                        port:perl5
+# perl5 is only used for build scripts, no linking
+depends_build-append    port:perl5
 
-license_noconflict      python39 \
-                        perl5
+license_noconflict      perl5
 
 depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:zlib \
                         path:lib/pkgconfig/pixman-1.pc:libpixman
 
+patchfiles              vmnet-framework-v5.patch
+
+# This patch sets the python interpreter from meson's shebang line
+patchfiles-append       patch-qemu-configure.diff
+
+# "error: unknown type name 'fpunchhole_t'" pre-10.12.4
+# patchfiles-append       patch-qemu-punchhole.diff
+
+# "cp: illegal option -- a"
+patchfiles-append       patch-qemu-scripts-entitlements.diff
+
+# IPPROTO workarounds
+# patchfiles-append       patch-qemu-net-colo.diff
+
+# MADV_DONTNEED workaround
+patchfiles-append       patch-qemu-include-qemu-osdep.diff
+
+# MAP_JIT workaround
+patchfiles-append       patch-qemu-tcg-region.diff
+
 # "ERROR: You need at least GCC v7.5 or Clang v6.0 (or XCode Clang v10.0)"
 compiler.blacklist      {clang < 1000} {macports-clang-[3-5].*} {macports-gcc-[56]} {*gcc-[34].*}
-if {${os.platform} eq "darwin" && ${os.major} < 11} {
+if {${os.platform} eq "darwin" && ${os.major} < 11 && [string match *clang* ${configure.compiler}]} {
     # Emulated TLS needed, which was added in LLVM 3.8
     configure.cflags-append     -femulated-tls
 }
@@ -73,11 +83,10 @@ configure.args          --cpu=${host_cpu} \
                         --cc=${configure.cc} \
                         --objcc=${configure.objc} \
                         --host-cc=${configure.cc} \
-                        --python=${prefix}/bin/python3.9 \
                         --sphinx-build=${prefix}/bin/sphinx-build-3.9
 
-# Use internal meson
-# configure.args-append   --meson=internal
+# Use MacPorts meson, which includes platform-specific fixes
+configure.args-append   --meson=${prefix}/bin/meson
 
 # Do not use iasl, even if it is installed, #43911
 configure.args-append   --iasl=/usr/bin/false
@@ -90,6 +99,7 @@ configure.args-append   --disable-cocoa \
                         --disable-gtk \
                         --disable-opengl \
                         --enable-bzip2 \
+                        --enable-hvf \
                         --disable-curl \
                         --disable-attr \
                         --disable-vde \
@@ -116,6 +126,11 @@ configure.args-append   --disable-cocoa \
                         --disable-lzo \
                         --disable-lzfse \
                         --disable-zstd
+
+# Hypervisor.framework introduced in 10.10
+if {${os.platform} eq "darwin" && ${os.major} < 14} {
+    configure.args-replace --enable-hvf --disable-hvf
+}
 
 # libtool: unknown option character `-' in: --mode=compile
 configure.env-append   LIBTOOL=${prefix}/bin/glibtool
@@ -149,6 +164,11 @@ pre-configure {
 build.args-append       V=1
 
 default_variants        +usb
+
+# https://trac.macports.org/ticket/62164#comment:10
+if {${os.platform} eq "darwin" && ${os.major} < 18} {
+    default_variants-append +curses
+}
 
 foreach t {i386 x86_64 alpha {arm aarch64} cris hppa m68k {microblaze microblazeel} {mips mipsel mips64 mips64el} \
            nios2 moxie or1k {ppc ppc64} riscv32 riscv64 rx s390x {sh4 sh4eb} {sparc sparc64} tricore {xtensa xtensaeb}} {
