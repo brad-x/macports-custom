@@ -727,13 +727,13 @@ go.vendors          gopkg.in/yaml.v3 \
                         sha256  d460cf405998a953839488826c13b94e179b8e6bb26ed0d81863a8add58c1a5b \
                         size    13301
 
-// set daemon_uniquename   org.freedesktop.avahi-daemon
-// startupitem.type    launchd
-// startupitem.create  no
-// startupitems        name        simple-torrent \
-//                     location    LaunchDaemons \
-//                     uniquename  ${daemon_uniquename} \
-//                     plist       ${daemon_uniquename}.plist \
+# set daemon_uniquename   org.freedesktop.avahi-daemon
+# startupitem.type    launchd
+# startupitem.create  no
+# startupitems        name        simple-torrent \
+#                    location    LaunchDaemons \
+#                    uniquename  ${daemon_uniquename} \
+#                    plist       ${daemon_uniquename}.plist \
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
