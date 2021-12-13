@@ -408,7 +408,7 @@ go.vendors          gopkg.in/yaml.v3 \
                         lock    v4.20.0 \
                         rmd160  31d8656bd6c1426338ceaac9535198244248b254 \
                         sha256  04069406ca336d355eab62b4ab9e84b820ac968ac1e20bd3777efec2d3843446 \
-                        size    7308 \
+                        size    7305 \
                     github.com/json-iterator/go \
                         lock    v1.1.10 \
                         rmd160  963a70cf0a7d056f6b00fb2224687895612a35e2 \
