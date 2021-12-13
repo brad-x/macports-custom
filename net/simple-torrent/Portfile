@@ -119,7 +119,7 @@ go.vendors          gopkg.in/yaml.v3 \
                         rmd160  83994a59642bf9d337cf9932b73f59751526ee84 \
                         sha256  768e97b95874c135aebb95169fa14d1d805458cf6d328899f0037b729f599e06 \
                         size    10643 \
-                    github.com/willf/bitset \
+                    github.com/bits-and-blooms/bitset \
                         lock    v1.1.11 \
                         rmd160  3fac746fc087d200163da78454c9c6263a71834d \
                         sha256  2101a2f39a0552063d79e7a5a2e0bca363609899093ca3320e0a973552144619 \
