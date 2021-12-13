@@ -114,7 +114,7 @@ go.vendors          gopkg.in/yaml.v3 \
                         rmd160  357c11276b17cabc7156343f6896c191ad4e97ca \
                         sha256  d1d4299768a97e35df156bc9095a959eba788097a472d9bcd675289a53a99580 \
                         size    7724 \
-                    github.com/willf/bloom \
+                    github.com/bits-and-blooms/bloom \
                         lock    v2.0.3 \
                         rmd160  83994a59642bf9d337cf9932b73f59751526ee84 \
                         sha256  768e97b95874c135aebb95169fa14d1d805458cf6d328899f0037b729f599e06 \
@@ -726,6 +726,14 @@ go.vendors          gopkg.in/yaml.v3 \
                         rmd160  6984ed21526199be83eb7f67c50f992289fda316 \
                         sha256  d460cf405998a953839488826c13b94e179b8e6bb26ed0d81863a8add58c1a5b \
                         size    13301
+
+// set daemon_uniquename   org.freedesktop.avahi-daemon
+// startupitem.type    launchd
+// startupitem.create  no
+// startupitems        name        simple-torrent \
+//                     location    LaunchDaemons \
+//                     uniquename  ${daemon_uniquename} \
+//                     plist       ${daemon_uniquename}.plist \
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/
