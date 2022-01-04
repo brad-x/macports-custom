@@ -4,12 +4,12 @@ PortSystem 1.0
 PortGroup compiler_blacklist_versions 1.0
 PortGroup legacysupport 1.1
 
-# fdopendir
-legacysupport.newest_darwin_requires_legacy 13
+# clock_gettime
+legacysupport.newest_darwin_requires_legacy 15
 
 name                    qemu
-version                 6.2.0-rc4
-revision                1
+version                 6.2.0
+revision                0
 categories              emulators
 license                 GPL-2+
 platforms               darwin
@@ -26,9 +26,9 @@ homepage                https://www.qemu.org
 master_sites            https://download.qemu.org/
 use_xz                  yes
 
-checksums               rmd160  f84124beff330de823b04cd324649af914132d59 \
-                        sha256  b68f3af16f130ed4b62392773ebf5aedde9674bf6d3e1a77ec8aca9a498ea7dd \
-                        size    115681232
+checksums               rmd160  1860d0ab3729a6e247ef69543249d60278d8496e \
+                        sha256  68e15d8e45ac56326e0b9a4afa8b49a3dfe8aba3488221d098c84698bca65b45 \
+                        size    115667324
 
 depends_build           port:texinfo \
                         port:libtool \
@@ -52,13 +52,13 @@ patchfiles              vmnet-framework-v5.patch
 patchfiles-append       patch-qemu-configure.diff
 
 # "error: unknown type name 'fpunchhole_t'" pre-10.12.4
-# patchfiles-append       patch-qemu-punchhole.diff
+patchfiles-append       patch-qemu-punchhole.diff
 
 # "cp: illegal option -- a"
 patchfiles-append       patch-qemu-scripts-entitlements.diff
 
 # IPPROTO workarounds
-# patchfiles-append       patch-qemu-net-colo.diff
+patchfiles-append       patch-qemu-net-colo.diff
 
 # MADV_DONTNEED workaround
 patchfiles-append       patch-qemu-include-qemu-osdep.diff
@@ -192,32 +192,15 @@ variant curses description {Use the curses text-only user interface} {
 
 # XXX: gtk/sdl need libepoxy for OpenGL
 
-# XXX: Builds, but does not work as expected at runtime
-#variant gtk3 description {Build GTK+ GUI for GTK+ 3 (experimental)} conflicts cocoa curses gtk2 sdl sdl2 {
-#    configure.args-replace --disable-gtk --enable-gtk
-#    configure.args-append --with-gtkabi=3.0
-#    depends_lib-append     path:lib/pkgconfig/gtk+-3.0.pc:gtk3 port:vte
-#}
+variant gtk3 description {Use the GTK+3 graphical user interface} conflicts cocoa {
+    configure.args-replace --disable-gtk --enable-gtk
+    depends_lib-append     path:lib/pkgconfig/gtk+-3.0.pc:gtk3 port:vte
+}
 
-# XXX: Builds, but user input does not work at runtime
-#variant gtk2 description {Use the GTK+ 2 graphical user interface} conflicts cocoa curses gtk3 sdl sdl2 {
-#    configure.args-replace --disable-gtk --enable-gtk
-#    configure.args-append  --with-gtkabi=2.0
-#    depends_lib-append     path:lib/pkgconfig/gtk+-2.0.pc:gtk2 port:vte
-#}
-
-# XXX: Build broken due to missing X11 symbols
-#variant sdl description {Use the SDL graphical user interface} conflicts cocoa curses gtk2 gtk3 sdl sdl2 {
-#    configure.args-replace --disable-sdl --enable-sdl
-#    depends_lib-append      port:libsdl
-#}
-
-# XXX: Broken at runtime, screen flickers and input does not work
-#variant sdl2 description {Use the SDL 2 graphical user interface} conflicts cocoa curses {
-#    configure.args-replace --disable-sdl --enable-sdl
-#    configure.args-append --with-sdlabi=2.0
-#    depends_lib-append      port:libsdl2
-#}
+variant sdl2 description {Use the SDL 2 graphical user interface} conflicts cocoa {
+    configure.args-replace --disable-sdl --enable-sdl
+    depends_lib-append      port:libsdl2
+}
 
 variant usb description {Support forwarding of USB devices to the guest} {
     configure.args-replace  --disable-libusb --enable-libusb
