@@ -9,7 +9,7 @@ legacysupport.newest_darwin_requires_legacy 15
 
 name                    qemu
 version                 6.2.0
-revision                0
+revision                1
 categories              emulators
 license                 GPL-2+
 platforms               darwin
