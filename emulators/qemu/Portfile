@@ -46,7 +46,13 @@ depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:zlib \
                         path:lib/pkgconfig/pixman-1.pc:libpixman
 
-patchfiles              vmnet-framework-v5.patch
+patchfiles              vmnet-v8/0001-net-vmnet-add-vmnet-dependency-and-customizable-option.patch \
+                        vmnet-v8/0002-net-vmnet-add-vmnet-backends-to-qapi-net.patch \
+                        vmnet-v8/0003-net-vmnet-implement-shared-mode-vmnet-shared.patch \
+                        vmnet-v8/0004-net-vmnet-implement-host-mode-vmnet-host.patch \
+                        vmnet-v8/0005-net-vmnet-implement-bridged-mode-vmnet-bridged.patch \
+                        vmnet-v8/0006-net-vmnet-update-qemu-options-hx.patch \
+                        vmnet-v8/0007-net-vmnet-update-MAINTAINERS-list.patch
 
 # This patch sets the python interpreter from meson's shebang line
 patchfiles-append       patch-qemu-configure.diff
