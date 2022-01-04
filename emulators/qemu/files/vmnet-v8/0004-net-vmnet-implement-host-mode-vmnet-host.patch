@@ -8,10 +8,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet-host.c | 93 ++++++++++++++++++++++++++++++++++++++++++++----
  1 file changed, 87 insertions(+), 6 deletions(-)
 
-diff --git a/net/vmnet-host.c b/net/vmnet-host.c
+diff --git net/vmnet-host.c net/vmnet-host.c
 index 4a5ef99dc7..9c2e760ed1 100644
---- a/net/vmnet-host.c
-+++ b/net/vmnet-host.c
+--- net/vmnet-host.c
++++ net/vmnet-host.c
 @@ -9,16 +9,97 @@
   */
  

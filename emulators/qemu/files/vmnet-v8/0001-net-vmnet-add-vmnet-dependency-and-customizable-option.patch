@@ -11,10 +11,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  scripts/meson-buildoptions.sh | 3 +++
  3 files changed, 9 insertions(+)
 
-diff --git a/meson.build b/meson.build
+diff --git meson.build meson.build
 index 96de1a6ef9..ce8acf6ada 100644
---- a/meson.build
-+++ b/meson.build
+--- meson.build
++++ meson.build
 @@ -481,6 +481,8 @@ if cocoa.found() and get_option('gtk').enabled()
    error('Cocoa and GTK+ cannot be enabled at the same time')
  endif
@@ -40,10 +40,10 @@ index 96de1a6ef9..ce8acf6ada 100644
  summary_info += {'netmap support':    have_netmap}
  summary_info += {'l2tpv3 support':    have_l2tpv3}
  summary_info += {'Linux AIO support': libaio}
-diff --git a/meson_options.txt b/meson_options.txt
+diff --git meson_options.txt meson_options.txt
 index e392323732..0538d48a85 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
+--- meson_options.txt
++++ meson_options.txt
 @@ -147,6 +147,8 @@ option('netmap', type : 'feature', value : 'auto',
         description: 'netmap network backend support')
  option('vde', type : 'feature', value : 'auto',
@@ -53,10 +53,10 @@ index e392323732..0538d48a85 100644
  option('virglrenderer', type : 'feature', value : 'auto',
         description: 'virgl rendering support')
  option('vnc', type : 'feature', value : 'auto',
-diff --git a/scripts/meson-buildoptions.sh b/scripts/meson-buildoptions.sh
+diff --git scripts/meson-buildoptions.sh scripts/meson-buildoptions.sh
 index 7a17ff4218..13da30f018 100644
---- a/scripts/meson-buildoptions.sh
-+++ b/scripts/meson-buildoptions.sh
+--- scripts/meson-buildoptions.sh
++++ scripts/meson-buildoptions.sh
 @@ -82,6 +82,7 @@ meson_options_help() {
    printf "%s\n" '  u2f             U2F emulation support'
    printf "%s\n" '  usb-redir       libusbredir support'

@@ -8,10 +8,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  MAINTAINERS | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
+diff --git MAINTAINERS MAINTAINERS
 index 7543eb4d59..5c696e38da 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
+--- MAINTAINERS
++++ MAINTAINERS
 @@ -2631,6 +2631,11 @@ W: http://info.iet.unipi.it/~luigi/netmap/
  S: Maintained
  F: net/netmap.c

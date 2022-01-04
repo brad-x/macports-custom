@@ -8,10 +8,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  qemu-options.hx | 25 +++++++++++++++++++++++++
  1 file changed, 25 insertions(+)
 
-diff --git a/qemu-options.hx b/qemu-options.hx
+diff --git qemu-options.hx qemu-options.hx
 index ae2c6dbbfc..1ffa5eedd5 100644
---- a/qemu-options.hx
-+++ b/qemu-options.hx
+--- qemu-options.hx
++++ qemu-options.hx
 @@ -2677,6 +2677,25 @@ DEF("netdev", HAS_ARG, QEMU_OPTION_netdev,
  #ifdef __linux__
      "-netdev vhost-vdpa,id=str,vhostdev=/path/to/dev\n"

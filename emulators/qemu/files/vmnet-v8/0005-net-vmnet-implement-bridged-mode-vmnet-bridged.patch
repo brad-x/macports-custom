@@ -8,10 +8,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet-bridged.m | 98 ++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 92 insertions(+), 6 deletions(-)
 
-diff --git a/net/vmnet-bridged.m b/net/vmnet-bridged.m
+diff --git net/vmnet-bridged.m net/vmnet-bridged.m
 index 4e42a90391..3c9da9dc8b 100644
---- a/net/vmnet-bridged.m
-+++ b/net/vmnet-bridged.m
+--- net/vmnet-bridged.m
++++ net/vmnet-bridged.m
 @@ -10,16 +10,102 @@
  
  #include "qemu/osdep.h"

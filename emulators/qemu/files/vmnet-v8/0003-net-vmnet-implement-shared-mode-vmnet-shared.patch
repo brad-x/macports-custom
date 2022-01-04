@@ -29,10 +29,10 @@ Signed-off-by: Vladislav Yaroshchuk <yaroshchuk2000@gmail.com>
  net/vmnet_int.h    |  23 ++++
  3 files changed, 404 insertions(+), 4 deletions(-)
 
-diff --git a/net/vmnet-common.m b/net/vmnet-common.m
+diff --git net/vmnet-common.m net/vmnet-common.m
 index 532d152840..6d474af4be 100644
---- a/net/vmnet-common.m
-+++ b/net/vmnet-common.m
+--- net/vmnet-common.m
++++ net/vmnet-common.m
 @@ -10,6 +10,8 @@
   */
  
@@ -355,10 +355,10 @@ index 532d152840..6d474af4be 100644
 +        g_free(s->iov_buf[i].iov_base);
 +    }
 +}
-diff --git a/net/vmnet-shared.c b/net/vmnet-shared.c
+diff --git net/vmnet-shared.c net/vmnet-shared.c
 index f8c4a4f3b8..08f7004427 100644
---- a/net/vmnet-shared.c
-+++ b/net/vmnet-shared.c
+--- net/vmnet-shared.c
++++ net/vmnet-shared.c
 @@ -10,16 +10,83 @@
  
  #include "qemu/osdep.h"
@@ -447,10 +447,10 @@ index f8c4a4f3b8..08f7004427 100644
 +    return vmnet_if_create(nc, if_desc, errp, NULL);
  }
 +
-diff --git a/net/vmnet_int.h b/net/vmnet_int.h
+diff --git net/vmnet_int.h net/vmnet_int.h
 index c5982259a4..3979fe4678 100644
---- a/net/vmnet_int.h
-+++ b/net/vmnet_int.h
+--- net/vmnet_int.h
++++ net/vmnet_int.h
 @@ -16,10 +16,33 @@
  
  #include <vmnet/vmnet.h>
