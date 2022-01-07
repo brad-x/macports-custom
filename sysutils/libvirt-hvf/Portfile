@@ -31,7 +31,12 @@ master_sites        ${homepage}/sources/
 homepage            https://gitlab.com/abologna/libvirt/
 master_sites        https://gitlab.com/abologna/libvirt/-/archive/hvf/
 
-distfiles           libvirt-hvf.tar.gz
+fetch.type          git
+git.url             https://gitlab.com/abologna/libvirt.git
+
+post-fetch {
+    system -W ${worksrcpath} "git submodule update --init"
+}
 
 # use_xz              yes
 
