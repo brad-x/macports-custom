@@ -1,0 +1,70 @@
+From: Andrea Bolognani <abologna@redhat.com>
+Subject: [libvirt PATCH v4 02/19] qemu: Add KVM CPUs into cache only if KVM is
+	present
+Date: Fri,  7 Jan 2022 10:47:29 +0100
+Content-Type: text/plain; charset="utf-8"
+
+From: Roman Bolshakov <r.bolshakov@yadro.com>
+
+virQEMUCapsFormatCache/virQEMUCapsLoadCache adds/reads KVM CPUs to/from
+capabilities cache regardless of QEMU_CAPS_KVM. That can cause undesired
+side-effects when KVM CPUs are present in the cache on a platform that
+doesn't support it, e.g. macOS or Linux without KVM support.
+
+Signed-off-by: Roman Bolshakov <r.bolshakov@yadro.com>
+Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+---
+ src/qemu/qemu_capabilities.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+index 2d72132410..fd001100a1 100644
+--- a/src/qemu/qemu_capabilities.c
++++ b/src/qemu/qemu_capabilities.c
+@@ -4420,8 +4420,11 @@ virQEMUCapsLoadCache(virArch hostArch,
+             return -1;
+     }
+ 
+-    if (virQEMUCapsLoadAccel(qemuCaps, ctxt, VIR_DOMAIN_VIRT_KVM) < 0 ||
+-        virQEMUCapsLoadAccel(qemuCaps, ctxt, VIR_DOMAIN_VIRT_QEMU) < 0)
++    if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_KVM) &&
++        virQEMUCapsLoadAccel(qemuCaps, ctxt, VIR_DOMAIN_VIRT_KVM) < 0) {
++        return -1;
++    }
++    if (virQEMUCapsLoadAccel(qemuCaps, ctxt, VIR_DOMAIN_VIRT_QEMU) < 0)
+         return -1;
+ 
+     if (virQEMUCapsParseGIC(qemuCaps, ctxt) < 0)
+@@ -4430,7 +4433,8 @@ virQEMUCapsLoadCache(virArch hostArch,
+     if (virQEMUCapsParseSEVInfo(qemuCaps, ctxt) < 0)
+         return -1;
+ 
+-    virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_KVM);
++    if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_KVM))
++        virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_KVM);
+     virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_QEMU);
+ 
+     if (virXPathBoolean("boolean(./kvmSupportsNesting)", ctxt) > 0)
+@@ -4663,7 +4667,8 @@ virQEMUCapsFormatCache(virQEMUCaps *qemuCaps)
+     virBufferAsprintf(&buf, "<arch>%s</arch>\n",
+                       virArchToString(qemuCaps->arch));
+ 
+-    virQEMUCapsFormatAccel(qemuCaps, &buf, VIR_DOMAIN_VIRT_KVM);
++    if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_KVM))
++        virQEMUCapsFormatAccel(qemuCaps, &buf, VIR_DOMAIN_VIRT_KVM);
+     virQEMUCapsFormatAccel(qemuCaps, &buf, VIR_DOMAIN_VIRT_QEMU);
+ 
+     for (i = 0; i < qemuCaps->ngicCapabilities; i++) {
+@@ -5517,7 +5522,8 @@ virQEMUCapsNewForBinaryInternal(virArch hostArch,
+     qemuCaps->libvirtCtime = virGetSelfLastChanged();
+     qemuCaps->libvirtVersion = LIBVIR_VERSION_NUMBER;
+ 
+-    virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_KVM);
++    if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_KVM))
++        virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_KVM);
+     virQEMUCapsInitHostCPUModel(qemuCaps, hostArch, VIR_DOMAIN_VIRT_QEMU);
+ 
+     if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_KVM)) {
+-- 
+2.31.1
+

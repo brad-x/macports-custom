@@ -1,0 +1,58 @@
+From: Andrea Bolognani <abologna@redhat.com>
+Subject: [libvirt PATCH v4 07/19] qemu: Introduce virQEMUCapsAccelStr
+Date: Fri,  7 Jan 2022 10:47:34 +0100
+Content-Type: text/plain; charset="utf-8"
+
+From: Roman Bolshakov <r.bolshakov@yadro.com>
+
+This makes possible to add more accelerators by touching less code and
+reduces code duplication.
+
+Signed-off-by: Roman Bolshakov <r.bolshakov@yadro.com>
+Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+---
+ src/qemu/qemu_capabilities.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+index 081c43e728..c246e1b6ce 100644
+--- a/src/qemu/qemu_capabilities.c
++++ b/src/qemu/qemu_capabilities.c
+@@ -792,6 +792,16 @@ const char *virQEMUCapsArchToString(virArch arch)
+ }
+ 
+ 
++static const char *
++virQEMUCapsAccelStr(virDomainVirtType type)
++{
++    if (type == VIR_DOMAIN_VIRT_QEMU)
++        return "tcg";
++
++    return virDomainVirtTypeToString(type);
++}
++
++
+ /* Checks whether a domain with @guest arch can run natively on @host.
+  */
+ bool
+@@ -4069,7 +4079,7 @@ virQEMUCapsLoadAccel(virQEMUCaps *qemuCaps,
+                      virDomainVirtType type)
+ {
+     virQEMUCapsAccel *caps = virQEMUCapsGetAccel(qemuCaps, type);
+-    const char *typeStr = type == VIR_DOMAIN_VIRT_KVM ? "kvm" : "tcg";
++    const char *typeStr = virQEMUCapsAccelStr(type);
+ 
+     if (virQEMUCapsLoadHostCPUModelInfo(caps, ctxt, typeStr) < 0)
+         return -1;
+@@ -4622,7 +4632,7 @@ virQEMUCapsFormatAccel(virQEMUCaps *qemuCaps,
+                        virDomainVirtType type)
+ {
+     virQEMUCapsAccel *caps = virQEMUCapsGetAccel(qemuCaps, type);
+-    const char *typeStr = type == VIR_DOMAIN_VIRT_KVM ? "kvm" : "tcg";
++    const char *typeStr = virQEMUCapsAccelStr(type);
+ 
+     virQEMUCapsFormatHostCPUModelInfo(caps, buf, typeStr);
+     virQEMUCapsFormatCPUModels(caps, buf, typeStr);
+-- 
+2.31.1
+

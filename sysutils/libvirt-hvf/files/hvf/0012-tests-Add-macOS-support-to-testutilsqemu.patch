@@ -1,0 +1,144 @@
+From: Andrea Bolognani <abologna@redhat.com>
+Subject: [libvirt PATCH v4 12/19] tests: Add macOS support to testutilsqemu
+Date: Fri,  7 Jan 2022 10:47:39 +0100
+Content-Type: text/plain; charset="utf-8"
+
+This exposes a couple of macOS-specific variants of existing
+APIs, which can be used when implementing test programs and
+result in HVF support being advertised.
+
+Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+---
+ tests/testutilsqemu.c | 58 +++++++++++++++++++++++++++++++++++++++++++
+ tests/testutilsqemu.h |  4 +++
+ 2 files changed, 62 insertions(+)
+
+diff --git a/tests/testutilsqemu.c b/tests/testutilsqemu.c
+index b9835782da..64c57b0073 100644
+--- a/tests/testutilsqemu.c
++++ b/tests/testutilsqemu.c
+@@ -97,6 +97,18 @@ static const char *const *kvm_machines[VIR_ARCH_LAST] = {
+     [VIR_ARCH_S390X] = s390x_machines,
+ };
+ 
++static const char *const *hvf_machines[VIR_ARCH_LAST] = {
++    [VIR_ARCH_I686] = NULL,
++    [VIR_ARCH_X86_64] = x86_64_machines,
++    [VIR_ARCH_AARCH64] = aarch64_machines,
++    [VIR_ARCH_ARMV7L] = NULL,
++    [VIR_ARCH_PPC64] = NULL,
++    [VIR_ARCH_PPC] = NULL,
++    [VIR_ARCH_RISCV32] = NULL,
++    [VIR_ARCH_RISCV64] = NULL,
++    [VIR_ARCH_S390X] = NULL,
++};
++
+ static const char *qemu_default_ram_id[VIR_ARCH_LAST] = {
+     [VIR_ARCH_I686] = "pc.ram",
+     [VIR_ARCH_X86_64] = "pc.ram",
+@@ -208,6 +220,20 @@ testQemuAddGuest(virCaps *caps,
+         }
+     }
+ 
++    if (hostOS == HOST_OS_MACOS) {
++        if (hvf_machines[emu_arch] != NULL) {
++            nmachines = g_strv_length((char **)hvf_machines[emu_arch]);
++            machines = virCapabilitiesAllocMachines(hvf_machines[emu_arch],
++                                                    nmachines);
++            if (machines == NULL)
++                goto error;
++
++            virCapabilitiesAddGuestDomain(guest, VIR_DOMAIN_VIRT_HVF,
++                                          qemu_emulators[emu_arch],
++                                          NULL, nmachines, machines);
++        }
++    }
++
+     return 0;
+ 
+  error:
+@@ -265,6 +291,12 @@ testQemuCapsInit(void)
+     return testQemuCapsInitImpl(HOST_OS_LINUX);
+ }
+ 
++virCaps*
++testQemuCapsInitMacOS(void)
++{
++    return testQemuCapsInitImpl(HOST_OS_MACOS);
++}
++
+ 
+ void
+ qemuTestSetHostArch(virQEMUDriver *driver,
+@@ -394,6 +426,25 @@ qemuTestCapsPopulateFakeMachines(virQEMUCaps *caps,
+             }
+         }
+     }
++
++    if (hostOS == HOST_OS_MACOS) {
++        if (hvf_machines[arch] != NULL) {
++            for (i = 0; hvf_machines[arch][i] != NULL; i++) {
++                virQEMUCapsAddMachine(caps,
++                        VIR_DOMAIN_VIRT_HVF,
++                        hvf_machines[arch][i],
++                        NULL,
++                        NULL,
++                        0,
++                        false,
++                        false,
++                        true,
++                        defaultRAMid,
++                        false);
++                virQEMUCapsSet(caps, QEMU_CAPS_HVF);
++            }
++        }
++    }
+ }
+ 
+ 
+@@ -491,6 +542,13 @@ qemuTestCapsCacheInsert(virFileCache *cache,
+     return qemuTestCapsCacheInsertImpl(cache, caps, HOST_OS_LINUX);
+ }
+ 
++int
++qemuTestCapsCacheInsertMacOS(virFileCache *cache,
++                             virQEMUCaps *caps)
++{
++    return qemuTestCapsCacheInsertImpl(cache, caps, HOST_OS_MACOS);
++}
++
+ 
+ # define STATEDIRTEMPLATE abs_builddir "/qemustatedir-XXXXXX"
+ # define CONFIGDIRTEMPLATE abs_builddir "/qemuconfigdir-XXXXXX"
+diff --git a/tests/testutilsqemu.h b/tests/testutilsqemu.h
+index a8de6eb52b..a9202d2ae6 100644
+--- a/tests/testutilsqemu.h
++++ b/tests/testutilsqemu.h
+@@ -35,6 +35,7 @@ enum {
+ 
+ typedef enum {
+     HOST_OS_LINUX = 0,
++    HOST_OS_MACOS,
+ } testQemuHostOS;
+ 
+ typedef enum {
+@@ -92,6 +93,7 @@ struct testQemuInfo {
+ };
+ 
+ virCaps *testQemuCapsInit(void);
++virCaps *testQemuCapsInitMacOS(void);
+ virDomainXMLOption *testQemuXMLConfInit(void);
+ 
+ 
+@@ -113,6 +115,8 @@ int qemuTestDriverInit(virQEMUDriver *driver);
+ void qemuTestDriverFree(virQEMUDriver *driver);
+ int qemuTestCapsCacheInsert(virFileCache *cache,
+                             virQEMUCaps *caps);
++int qemuTestCapsCacheInsertMacOS(virFileCache *cache,
++                                 virQEMUCaps *caps);
+ 
+ int testQemuCapsSetGIC(virQEMUCaps *qemuCaps,
+                        int gic);
+-- 
+2.31.1
+

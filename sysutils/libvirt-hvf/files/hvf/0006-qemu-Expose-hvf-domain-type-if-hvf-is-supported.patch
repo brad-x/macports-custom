@@ -1,0 +1,33 @@
+From: Andrea Bolognani <abologna@redhat.com>
+Subject: [libvirt PATCH v4 06/19] qemu: Expose hvf domain type if hvf is
+	supported
+Date: Fri,  7 Jan 2022 10:47:33 +0100
+Content-Type: text/plain; charset="utf-8"
+
+From: Roman Bolshakov <r.bolshakov@yadro.com>
+
+Signed-off-by: Roman Bolshakov <r.bolshakov@yadro.com>
+Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+---
+ src/qemu/qemu_capabilities.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+index 56325d1762..081c43e728 100644
+--- a/src/qemu/qemu_capabilities.c
++++ b/src/qemu/qemu_capabilities.c
+@@ -1084,6 +1084,10 @@ virQEMUCapsInitGuestFromBinary(virCaps *caps,
+         virCapabilitiesAddGuestDomain(guest, VIR_DOMAIN_VIRT_KVM,
+                                       NULL, NULL, 0, NULL);
+     }
++    if (virQEMUCapsGet(qemuCaps, QEMU_CAPS_HVF)) {
++        virCapabilitiesAddGuestDomain(guest, VIR_DOMAIN_VIRT_HVF,
++                                      NULL, NULL, 0, NULL);
++    }
+ 
+     if ((ARCH_IS_X86(guestarch) || guestarch == VIR_ARCH_AARCH64))
+         virCapabilitiesAddGuestFeatureWithToggle(guest, VIR_CAPS_GUEST_FEATURE_TYPE_ACPI,
+-- 
+2.31.1
+
