@@ -9,9 +9,10 @@ PortGroup           meson 1.0
 legacysupport.newest_darwin_requires_legacy 10
 
 # Remember to update libvirt and py-libvirt at the same time.
-name                libvirt
+name                libvirt-hvf
 version             7.10.0
 revision            0
+distfiles           libvirt-7.10.0.tar.xz
 checksums           rmd160  015d80331e44508dbe7c2f3cafaa140d65a892e8 \
                     sha256  cb318014af097327928c6e3d72922e3be02a3e6401247b2aa52d9ab8e0b480f9 \
                     size    8798000
