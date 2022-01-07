@@ -33,7 +33,7 @@ master_sites        https://gitlab.com/abologna/libvirt/-/archive/hvf/
 
 distfiles           libvirt-hvf.tar.gz
 
-use_xz              yes
+# use_xz              yes
 
 set python_branch   3.9
 set python_version  [string map {. {}} ${python_branch}]
