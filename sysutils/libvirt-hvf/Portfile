@@ -29,8 +29,9 @@ long_description    A toolkit to interact with the virtualization \
 homepage            https://libvirt.org
 master_sites        ${homepage}/sources/
 homepage            https://gitlab.com/abologna/libvirt/
-master_sites        https://gitlab.com/abologna/libvirt/-/archive/hvf/libvirt-hvf.tar.gz
+master_sites        https://gitlab.com/abologna/libvirt/-/archive/hvf/
 
+distfile            libvirt-hvf.tar.gz
 
 use_xz              yes
 
