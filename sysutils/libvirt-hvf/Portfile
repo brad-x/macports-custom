@@ -62,26 +62,6 @@ compiler.blacklist-append apple-gcc* gcc-3.3 *gcc-4.* macports-clang-3.3 {clang 
 # patchfiles-append   patch-meson.diff
                     # libvirt-omit-accel-cmd.diff
 
-patchfiles-append   hvf/0001-qemu-Only-probe-KVM-on-Linux.patch \
-                    hvf/0002-qemu-Add-KVM-CPUs-into-cache-only-if-KVM-is-present.patch \
-                    hvf/0003-conf-Add-hvf-domain-type.patch \
-                    hvf/0004-qemu-Define-hvf-capability.patch \
-                    hvf/0005-qemu-Query-hvf-capability-on-macOS.patch \
-                    hvf/0006-qemu-Expose-hvf-domain-type-if-hvf-is-supported.patch \
-                    hvf/0007-qemu-Introduce-virQEMUCapsAccelStr.patch \
-                    hvf/0008-qemu-Introduce-virQEMUCapsTypeIsAccelerated.patch \
-                    hvf/0009-qemu-Introduce-virQEMUCapsHaveAccel.patch \
-                    hvf/0010-qemu-Correct-CPU-capabilities-probing-for-hvf.patch \
-                    hvf/0011-tests-Introduce-testQemuHostOS.patch \
-                    hvf/0012-tests-Add-macOS-support-to-testutilsqemu.patch \
-                    hvf/0013-tests-Add-macOS-support-to-qemuxml2-test.patch \
-                    hvf/0014-tests-Add-HVF-test-cases.patch \
-                    hvf/0015-docs-Add-hvf-on-QEMU-driver-page.patch \
-                    hvf/0016-docs-Note-hvf-support-for-domain-elements.patch \
-                    hvf/0017-docs-Add-support-page-for-libvirt-on-macOS.patch \
-                    hvf/0018-news-Mention-hvf-domain-type.patch \
-                    hvf/0019-misc-fixup-NEWS-Mention-Apple-Silicon-support-for-HVF.patch
-
 # libvirt build scripts require python 3.x
 configure.python    ${prefix}/bin/python${python_branch}
 configure.perl      ${prefix}/bin/perl5
