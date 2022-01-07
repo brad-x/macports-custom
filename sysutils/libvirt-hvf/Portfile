@@ -56,12 +56,9 @@ depends_lib         port:curl \
 # error: You need at least XCode Clang v5.1 to compile QEMU
 compiler.blacklist-append apple-gcc* gcc-3.3 *gcc-4.* macports-clang-3.3 {clang < 503}
 
-patch.args          -p0
 patchfiles-append   patch-meson.diff \
                     libvirt-omit-accel-cmd.diff
 
-
-patch.args          -p1
 patchfiles-append   hvf/0001-qemu-Only-probe-KVM-on-Linux.patch \
                     hvf/0002-qemu-Add-KVM-CPUs-into-cache-only-if-KVM-is-present.patch \
                     hvf/0003-conf-Add-hvf-domain-type.patch \
