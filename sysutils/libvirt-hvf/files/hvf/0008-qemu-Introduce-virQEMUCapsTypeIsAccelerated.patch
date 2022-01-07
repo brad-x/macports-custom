@@ -18,10 +18,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  src/qemu/qemu_capabilities.c | 19 +++++++++++++------
  1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index c246e1b6ce..8e127c9041 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -802,6 +802,13 @@ virQEMUCapsAccelStr(virDomainVirtType type)
  }
  

@@ -19,37 +19,37 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  .../hvf-x86_64-q35-headless.xml               | 97 +++++++++++++++++++
  tests/qemuxml2xmltest.c                       | 16 +++
  9 files changed, 410 insertions(+)
- create mode 100644 tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args
- create mode 100644 tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml
- create mode 100644 tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args
- create mode 100644 tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err
- create mode 100644 tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml
- create mode 100644 tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml
- create mode 100644 tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml
+ create mode 100644 tests/qemuxml2argvdathvf-aarch64-virt-headless.args
+ create mode 100644 tests/qemuxml2argvdathvf-aarch64-virt-headless.xml
+ create mode 100644 tests/qemuxml2argvdathvf-x86_64-q35-headless.args
+ create mode 100644 tests/qemuxml2argvdathvf-x86_64-q35-headless.x86_64-latest.err
+ create mode 100644 tests/qemuxml2argvdathvf-x86_64-q35-headless.xml
+ create mode 100644 tests/qemuxml2xmloutdathvf-aarch64-virt-headless.xml
+ create mode 100644 tests/qemuxml2xmloutdathvf-x86_64-q35-headless.xml
 
-diff --git a/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args b/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args
+diff --git tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args
 new file mode 100644
 index 0000000000..0f1eed66c2
 --- /dev/null
-+++ b/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.args
++++ tests/qemuxml2argvdathvf-aarch64-virt-headless.args
 @@ -0,0 +1,48 @@
 +LC_ALL=C \
 +PATH=/bin \
-+HOME=/tmp/lib/domain--1-test \
++HOME=/tmp/lidomain--1-test \
 +USER=test \
 +LOGNAME=test \
-+XDG_DATA_HOME=/tmp/lib/domain--1-test/.local/share \
-+XDG_CACHE_HOME=/tmp/lib/domain--1-test/.cache \
-+XDG_CONFIG_HOME=/tmp/lib/domain--1-test/.config \
++XDG_DATA_HOME=/tmp/lidomain--1-test/.local/share \
++XDG_CACHE_HOME=/tmp/lidomain--1-test/.cache \
++XDG_CONFIG_HOME=/tmp/lidomain--1-test/.config \
 +QEMU_AUDIO_DRV=none \
 +/usr/bin/qemu-system-aarch64 \
 +-name guest=test,debug-threads=on \
 +-S \
-+-object secret,id=masterKey0,format=raw,file=/tmp/lib/domain--1-test/master-key.aes \
++-object secret,id=masterKey0,format=raw,file=/tmp/lidomain--1-test/master-key.aes \
 +-machine virt,usb=off,dump-guest-core=off,gic-version=2 \
 +-accel hvf \
 +-drive file=/usr/share/edk2/aarch64/QEMU_EFI-silent-pflash.raw,if=pflash,format=raw,unit=0,readonly=on \
-+-drive file=/var/lib/libvirt/qemu/nvram/test_VARS.fd,if=pflash,format=raw,unit=1 \
++-drive file=/var/lilibvirt/qemu/nvram/test_VARS.fd,if=pflash,format=raw,unit=1 \
 +-m 4096 \
 +-realtime mlock=off \
 +-smp 2,sockets=2,cores=1,threads=1 \
@@ -57,7 +57,7 @@ index 0000000000..0f1eed66c2
 +-display none \
 +-no-user-config \
 +-nodefaults \
-+-chardev socket,id=charmonitor,path=/tmp/lib/domain--1-test/monitor.sock,server=on,wait=off \
++-chardev socket,id=charmonitor,path=/tmp/lidomain--1-test/monitor.sock,server=on,wait=off \
 +-mon chardev=charmonitor,id=monitor,mode=control \
 +-rtc base=utc,driftfix=slew \
 +-no-shutdown \
@@ -69,7 +69,7 @@ index 0000000000..0f1eed66c2
 +-device pcie-root-port,port=12,chassis=5,id=pci.5,bus=pcie.0,addr=0x1.0x4 \
 +-device pcie-root-port,port=13,chassis=6,id=pci.6,bus=pcie.0,addr=0x1.0x5 \
 +-device virtio-serial-pci,id=virtio-serial0,bus=pci.2,addr=0x0 \
-+-drive file=/var/lib/libvirt/images/test.qcow2,format=qcow2,if=none,id=drive-virtio-disk0 \
++-drive file=/var/lilibvirt/images/test.qcow2,format=qcow2,if=none,id=drive-virtio-disk0 \
 +-device virtio-blk-pci,bus=pci.3,addr=0x0,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
 +-netdev user,id=hostnet0 \
 +-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:9a:e6:c6,bus=pci.1,addr=0x0 \
@@ -81,11 +81,11 @@ index 0000000000..0f1eed66c2
 +-object rng-random,id=objrng0,filename=/dev/urandom \
 +-device virtio-rng-pci,rng=objrng0,id=rng0,bus=pci.5,addr=0x0 \
 +-msg timestamp=on
-diff --git a/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml b/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml
+diff --git tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml
 new file mode 100644
 index 0000000000..ef13820e17
 --- /dev/null
-+++ b/tests/qemuxml2argvdata/hvf-aarch64-virt-headless.xml
++++ tests/qemuxml2argvdathvf-aarch64-virt-headless.xml
 @@ -0,0 +1,45 @@
 +<domain type='hvf'>
 +  <name>test</name>
@@ -96,7 +96,7 @@ index 0000000000..ef13820e17
 +  <os>
 +    <type arch='aarch64' machine='virt'>hvm</type>
 +    <loader readonly='yes' type='pflash'>/usr/share/edk2/aarch64/QEMU_EFI-silent-pflash.raw</loader>
-+    <nvram>/var/lib/libvirt/qemu/nvram/test_VARS.fd</nvram>
++    <nvram>/var/lilibvirt/qemu/nvram/test_VARS.fd</nvram>
 +    <boot dev='hd'/>
 +  </os>
 +  <features>
@@ -114,7 +114,7 @@ index 0000000000..ef13820e17
 +    <emulator>/usr/bin/qemu-system-aarch64</emulator>
 +    <disk type='file' device='disk'>
 +      <driver name='qemu' type='qcow2'/>
-+      <source file='/var/lib/libvirt/images/test.qcow2'/>
++      <source file='/var/lilibvirt/images/test.qcow2'/>
 +      <target dev='vda' bus='virtio'/>
 +    </disk>
 +    <controller type='usb' model='none'/>
@@ -132,25 +132,25 @@ index 0000000000..ef13820e17
 +    </rng>
 +  </devices>
 +</domain>
-diff --git a/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args
+diff --git tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args
 new file mode 100644
 index 0000000000..b3358e3d59
 --- /dev/null
-+++ b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.args
++++ tests/qemuxml2argvdathvf-x86_64-q35-headless.args
 @@ -0,0 +1,47 @@
 +LC_ALL=C \
 +PATH=/bin \
-+HOME=/tmp/lib/domain--1-test \
++HOME=/tmp/lidomain--1-test \
 +USER=test \
 +LOGNAME=test \
-+XDG_DATA_HOME=/tmp/lib/domain--1-test/.local/share \
-+XDG_CACHE_HOME=/tmp/lib/domain--1-test/.cache \
-+XDG_CONFIG_HOME=/tmp/lib/domain--1-test/.config \
++XDG_DATA_HOME=/tmp/lidomain--1-test/.local/share \
++XDG_CACHE_HOME=/tmp/lidomain--1-test/.cache \
++XDG_CONFIG_HOME=/tmp/lidomain--1-test/.config \
 +QEMU_AUDIO_DRV=none \
 +/usr/bin/qemu-system-x86_64 \
 +-name guest=test,debug-threads=on \
 +-S \
-+-object secret,id=masterKey0,format=raw,file=/tmp/lib/domain--1-test/master-key.aes \
++-object secret,id=masterKey0,format=raw,file=/tmp/lidomain--1-test/master-key.aes \
 +-machine q35,usb=off,dump-guest-core=off \
 +-accel hvf \
 +-m 4096 \
@@ -160,7 +160,7 @@ index 0000000000..b3358e3d59
 +-display none \
 +-no-user-config \
 +-nodefaults \
-+-chardev socket,id=charmonitor,path=/tmp/lib/domain--1-test/monitor.sock,server=on,wait=off \
++-chardev socket,id=charmonitor,path=/tmp/lidomain--1-test/monitor.sock,server=on,wait=off \
 +-mon chardev=charmonitor,id=monitor,mode=control \
 +-rtc base=utc,driftfix=slew \
 +-no-hpet \
@@ -173,7 +173,7 @@ index 0000000000..b3358e3d59
 +-device pcie-root-port,port=12,chassis=5,id=pci.5,bus=pcie.0,addr=0x1.0x4 \
 +-device pcie-root-port,port=13,chassis=6,id=pci.6,bus=pcie.0,addr=0x1.0x5 \
 +-device virtio-serial-pci,id=virtio-serial0,bus=pci.2,addr=0x0 \
-+-drive file=/var/lib/libvirt/images/test.qcow2,format=qcow2,if=none,id=drive-virtio-disk0 \
++-drive file=/var/lilibvirt/images/test.qcow2,format=qcow2,if=none,id=drive-virtio-disk0 \
 +-device virtio-blk-pci,bus=pci.3,addr=0x0,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
 +-netdev user,id=hostnet0 \
 +-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:9a:e6:c6,bus=pci.1,addr=0x0 \
@@ -185,18 +185,18 @@ index 0000000000..b3358e3d59
 +-object rng-random,id=objrng0,filename=/dev/urandom \
 +-device virtio-rng-pci,rng=objrng0,id=rng0,bus=pci.5,addr=0x0 \
 +-msg timestamp=on
-diff --git a/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err
+diff --git tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err
 new file mode 100644
 index 0000000000..374992ce71
 --- /dev/null
-+++ b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.x86_64-latest.err
++++ tests/qemuxml2argvdathvf-x86_64-q35-headless.x86_64-latest.err
 @@ -0,0 +1 @@
 +unsupported configuration: Emulator '/usr/bin/qemu-system-x86_64' does not support virt type 'hvf'
-diff --git a/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml
+diff --git tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml
 new file mode 100644
 index 0000000000..cad560e9ca
 --- /dev/null
-+++ b/tests/qemuxml2argvdata/hvf-x86_64-q35-headless.xml
++++ tests/qemuxml2argvdathvf-x86_64-q35-headless.xml
 @@ -0,0 +1,44 @@
 +<domain type='hvf'>
 +  <name>test</name>
@@ -224,7 +224,7 @@ index 0000000000..cad560e9ca
 +    <emulator>/usr/bin/qemu-system-x86_64</emulator>
 +    <disk type='file' device='disk'>
 +      <driver name='qemu' type='qcow2'/>
-+      <source file='/var/lib/libvirt/images/test.qcow2'/>
++      <source file='/var/lilibvirt/images/test.qcow2'/>
 +      <target dev='vda' bus='virtio'/>
 +    </disk>
 +    <controller type='usb' model='none'/>
@@ -242,10 +242,10 @@ index 0000000000..cad560e9ca
 +    </rng>
 +  </devices>
 +</domain>
-diff --git a/tests/qemuxml2argvtest.c b/tests/qemuxml2argvtest.c
+diff --git tests/qemuxml2argvtest.c tests/qemuxml2argvtest.c
 index 6bb330e27e..0ee5802f95 100644
---- a/tests/qemuxml2argvtest.c
-+++ b/tests/qemuxml2argvtest.c
+--- tests/qemuxml2argvtest.c
++++ tests/qemuxml2argvtest.c
 @@ -3509,6 +3509,24 @@ mymain(void)
  
      DO_TEST_CAPS_LATEST("devices-acpi-index");
@@ -271,11 +271,11 @@ index 6bb330e27e..0ee5802f95 100644
      if (getenv("LIBVIRT_SKIP_CLEANUP") == NULL)
          virFileDeleteTree(fakerootdir);
  
-diff --git a/tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml b/tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml
+diff --git tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml
 new file mode 100644
 index 0000000000..b5193a02b4
 --- /dev/null
-+++ b/tests/qemuxml2xmloutdata/hvf-aarch64-virt-headless.xml
++++ tests/qemuxml2xmloutdathvf-aarch64-virt-headless.xml
 @@ -0,0 +1,94 @@
 +<domain type='hvf'>
 +  <name>test</name>
@@ -286,7 +286,7 @@ index 0000000000..b5193a02b4
 +  <os>
 +    <type arch='aarch64' machine='virt'>hvm</type>
 +    <loader readonly='yes' type='pflash'>/usr/share/edk2/aarch64/QEMU_EFI-silent-pflash.raw</loader>
-+    <nvram>/var/lib/libvirt/qemu/nvram/test_VARS.fd</nvram>
++    <nvram>/var/lilibvirt/qemu/nvram/test_VARS.fd</nvram>
 +    <boot dev='hd'/>
 +  </os>
 +  <features>
@@ -305,7 +305,7 @@ index 0000000000..b5193a02b4
 +    <emulator>/usr/bin/qemu-system-aarch64</emulator>
 +    <disk type='file' device='disk'>
 +      <driver name='qemu' type='qcow2'/>
-+      <source file='/var/lib/libvirt/images/test.qcow2'/>
++      <source file='/var/lilibvirt/images/test.qcow2'/>
 +      <target dev='vda' bus='virtio'/>
 +      <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
 +    </disk>
@@ -371,11 +371,11 @@ index 0000000000..b5193a02b4
 +    </rng>
 +  </devices>
 +</domain>
-diff --git a/tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml b/tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml
+diff --git tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml
 new file mode 100644
 index 0000000000..fd2b376b9b
 --- /dev/null
-+++ b/tests/qemuxml2xmloutdata/hvf-x86_64-q35-headless.xml
++++ tests/qemuxml2xmloutdathvf-x86_64-q35-headless.xml
 @@ -0,0 +1,97 @@
 +<domain type='hvf'>
 +  <name>test</name>
@@ -403,7 +403,7 @@ index 0000000000..fd2b376b9b
 +    <emulator>/usr/bin/qemu-system-x86_64</emulator>
 +    <disk type='file' device='disk'>
 +      <driver name='qemu' type='qcow2'/>
-+      <source file='/var/lib/libvirt/images/test.qcow2'/>
++      <source file='/var/lilibvirt/images/test.qcow2'/>
 +      <target dev='vda' bus='virtio'/>
 +      <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
 +    </disk>
@@ -474,10 +474,10 @@ index 0000000000..fd2b376b9b
 +    </rng>
 +  </devices>
 +</domain>
-diff --git a/tests/qemuxml2xmltest.c b/tests/qemuxml2xmltest.c
+diff --git tests/qemuxml2xmltest.c tests/qemuxml2xmltest.c
 index 90047197b4..ecd46cf9d5 100644
---- a/tests/qemuxml2xmltest.c
-+++ b/tests/qemuxml2xmltest.c
+--- tests/qemuxml2xmltest.c
++++ tests/qemuxml2xmltest.c
 @@ -1460,6 +1460,22 @@ mymain(void)
  
      DO_TEST_CAPS_LATEST("devices-acpi-index");

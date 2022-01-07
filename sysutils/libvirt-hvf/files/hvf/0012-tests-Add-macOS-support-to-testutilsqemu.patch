@@ -13,10 +13,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  tests/testutilsqemu.h |  4 +++
  2 files changed, 62 insertions(+)
 
-diff --git a/tests/testutilsqemu.c b/tests/testutilsqemu.c
+diff --git tests/testutilsqemu.c tests/testutilsqemu.c
 index b9835782da..64c57b0073 100644
---- a/tests/testutilsqemu.c
-+++ b/tests/testutilsqemu.c
+--- tests/testutilsqemu.c
++++ tests/testutilsqemu.c
 @@ -97,6 +97,18 @@ static const char *const *kvm_machines[VIR_ARCH_LAST] = {
      [VIR_ARCH_S390X] = s390x_machines,
  };
@@ -110,10 +110,10 @@ index b9835782da..64c57b0073 100644
  
  # define STATEDIRTEMPLATE abs_builddir "/qemustatedir-XXXXXX"
  # define CONFIGDIRTEMPLATE abs_builddir "/qemuconfigdir-XXXXXX"
-diff --git a/tests/testutilsqemu.h b/tests/testutilsqemu.h
+diff --git tests/testutilsqemu.h tests/testutilsqemu.h
 index a8de6eb52b..a9202d2ae6 100644
---- a/tests/testutilsqemu.h
-+++ b/tests/testutilsqemu.h
+--- tests/testutilsqemu.h
++++ tests/testutilsqemu.h
 @@ -35,6 +35,7 @@ enum {
  
  typedef enum {

@@ -14,10 +14,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  src/qemu/qemu_capabilities.c | 14 ++++++++++++--
  1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index 081c43e728..c246e1b6ce 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -792,6 +792,16 @@ const char *virQEMUCapsArchToString(virArch arch)
  }
  

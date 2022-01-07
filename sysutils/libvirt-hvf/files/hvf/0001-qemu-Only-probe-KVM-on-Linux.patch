@@ -12,10 +12,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  src/qemu/qemu_process.c | 8 +++++++-
  1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/src/qemu/qemu_process.c b/src/qemu/qemu_process.c
+diff --git src/qemu/qemu_process.c src/qemu/qemu_process.c
 index 5c9ca0fe4f..c2c10d282a 100644
---- a/src/qemu/qemu_process.c
-+++ b/src/qemu/qemu_process.c
+--- src/qemu/qemu_process.c
++++ src/qemu/qemu_process.c
 @@ -9269,6 +9269,12 @@ qemuProcessQMPInit(qemuProcessQMP *proc)
  }
  

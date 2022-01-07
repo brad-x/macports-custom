@@ -15,10 +15,10 @@ Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
  src/qemu/qemu_capabilities.c | 17 ++++++++++++++---
  1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index 8e127c9041..8d0a700544 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -809,6 +809,13 @@ virQEMUCapsTypeIsAccelerated(virDomainVirtType type)
  }
  

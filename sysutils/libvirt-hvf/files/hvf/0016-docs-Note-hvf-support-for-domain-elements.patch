@@ -17,10 +17,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  docs/formatdomain.rst | 19 +++++++++++--------
  1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/docs/formatdomain.rst b/docs/formatdomain.rst
+diff --git docs/formatdomain.rst docs/formatdomain.rst
 index 3e9de05249..e27fb23119 100644
---- a/docs/formatdomain.rst
-+++ b/docs/formatdomain.rst
+--- docs/formatdomain.rst
++++ docs/formatdomain.rst
 @@ -1426,7 +1426,8 @@ In case no restrictions need to be put on CPU model and its features, a simpler
        :since:`Since 7.1.0` with the QEMU driver.
  

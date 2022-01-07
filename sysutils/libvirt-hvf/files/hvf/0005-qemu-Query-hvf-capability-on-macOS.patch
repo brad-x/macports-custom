@@ -16,10 +16,10 @@ Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
  src/qemu/qemu_capabilities.c | 34 ++++++++++++++++++++++++++++++++++
  1 file changed, 34 insertions(+)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index 6b7e295f68..56325d1762 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -56,6 +56,10 @@
  #include <unistd.h>
  #include <stdarg.h>

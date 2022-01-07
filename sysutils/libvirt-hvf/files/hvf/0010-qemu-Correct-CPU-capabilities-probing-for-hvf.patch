@@ -19,10 +19,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  src/qemu/qemu_process.c      |  2 ++
  2 files changed, 31 insertions(+), 3 deletions(-)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index 8d0a700544..dac8af38e6 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -744,6 +744,7 @@ struct _virQEMUCaps {
  
      /* Capabilities which may differ depending on the accelerator. */
@@ -151,10 +151,10 @@ index 8d0a700544..dac8af38e6 100644
 +    virQEMUCapsStripMachineAliasesForVirtType(qemuCaps, VIR_DOMAIN_VIRT_HVF);
      virQEMUCapsStripMachineAliasesForVirtType(qemuCaps, VIR_DOMAIN_VIRT_QEMU);
  }
-diff --git a/src/qemu/qemu_process.c b/src/qemu/qemu_process.c
+diff --git src/qemu/qemu_process.c src/qemu/qemu_process.c
 index c2c10d282a..ff13ac66d7 100644
---- a/src/qemu/qemu_process.c
-+++ b/src/qemu/qemu_process.c
+--- src/qemu/qemu_process.c
++++ src/qemu/qemu_process.c
 @@ -9271,6 +9271,8 @@ qemuProcessQMPInit(qemuProcessQMP *proc)
  
  #if defined(__linux__)

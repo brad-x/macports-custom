@@ -11,10 +11,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  NEWS.rst | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/NEWS.rst b/NEWS.rst
+diff --git NEWS.rst NEWS.rst
 index 7ee03fde0e..56efaa9f72 100644
---- a/NEWS.rst
-+++ b/NEWS.rst
+--- NEWS.rst
++++ NEWS.rst
 @@ -53,6 +53,15 @@ v8.0.0 (unreleased)
      ``domsetlaunchsecstate`` are added to support injecting a launch secret
      in a domain's memory.

@@ -14,10 +14,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  NEWS.rst | 7 ++-----
  1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/NEWS.rst b/NEWS.rst
+diff --git NEWS.rst NEWS.rst
 index 56efaa9f72..85cbdd154f 100644
---- a/NEWS.rst
-+++ b/NEWS.rst
+--- NEWS.rst
++++ NEWS.rst
 @@ -55,11 +55,8 @@ v8.0.0 (unreleased)
  
    * qemu: Add hvf domain type for Hypervisor.framework

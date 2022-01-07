@@ -15,10 +15,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  tests/testutilsqemu.h    |  2 ++
  4 files changed, 56 insertions(+), 2 deletions(-)
 
-diff --git a/tests/qemuxml2argvtest.c b/tests/qemuxml2argvtest.c
+diff --git tests/qemuxml2argvtest.c tests/qemuxml2argvtest.c
 index cc67d806e4..6bb330e27e 100644
---- a/tests/qemuxml2argvtest.c
-+++ b/tests/qemuxml2argvtest.c
+--- tests/qemuxml2argvtest.c
++++ tests/qemuxml2argvtest.c
 @@ -39,6 +39,8 @@
  # define VIR_FROM_THIS VIR_FROM_QEMU
  
@@ -85,10 +85,10 @@ index cc67d806e4..6bb330e27e 100644
  
  # define DO_TEST_FAILURE(name, ...) \
      DO_TEST_FULL(name, "", \
-diff --git a/tests/qemuxml2xmltest.c b/tests/qemuxml2xmltest.c
+diff --git tests/qemuxml2xmltest.c tests/qemuxml2xmltest.c
 index fb438269b9..90047197b4 100644
---- a/tests/qemuxml2xmltest.c
-+++ b/tests/qemuxml2xmltest.c
+--- tests/qemuxml2xmltest.c
++++ tests/qemuxml2xmltest.c
 @@ -21,6 +21,8 @@
  #define VIR_FROM_THIS VIR_FROM_NONE
  
@@ -150,10 +150,10 @@ index fb438269b9..90047197b4 100644
      /* Unset or set all envvars here that are copied in qemudBuildCommandLine
       * using ADD_ENV_COPY, otherwise these tests may fail due to unexpected
       * values for these envvars */
-diff --git a/tests/testutilsqemu.c b/tests/testutilsqemu.c
+diff --git tests/testutilsqemu.c tests/testutilsqemu.c
 index 64c57b0073..cba404e5cc 100644
---- a/tests/testutilsqemu.c
-+++ b/tests/testutilsqemu.c
+--- tests/testutilsqemu.c
++++ tests/testutilsqemu.c
 @@ -869,6 +869,10 @@ testQemuInfoSetArgs(struct testQemuInfo *info,
              info->args.capsver = va_arg(argptr, char *);
              break;
@@ -165,10 +165,10 @@ index 64c57b0073..cba404e5cc 100644
          case ARG_END:
          default:
              info->args.invalidarg = true;
-diff --git a/tests/testutilsqemu.h b/tests/testutilsqemu.h
+diff --git tests/testutilsqemu.h tests/testutilsqemu.h
 index a9202d2ae6..51139e6a97 100644
---- a/tests/testutilsqemu.h
-+++ b/tests/testutilsqemu.h
+--- tests/testutilsqemu.h
++++ tests/testutilsqemu.h
 @@ -47,6 +47,7 @@ typedef enum {
      ARG_PARSEFLAGS,
      ARG_CAPS_ARCH,

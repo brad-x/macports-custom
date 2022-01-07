@@ -18,10 +18,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  tests/testutilsqemu.h |  4 ++
  2 files changed, 58 insertions(+), 33 deletions(-)
 
-diff --git a/tests/testutilsqemu.c b/tests/testutilsqemu.c
+diff --git tests/testutilsqemu.c tests/testutilsqemu.c
 index cb665e501b..b9835782da 100644
---- a/tests/testutilsqemu.c
-+++ b/tests/testutilsqemu.c
+--- tests/testutilsqemu.c
++++ tests/testutilsqemu.c
 @@ -160,7 +160,8 @@ virHostCPUX86GetCPUID(uint32_t leaf,
  
  static int
@@ -188,10 +188,10 @@ index cb665e501b..b9835782da 100644
  
  # define STATEDIRTEMPLATE abs_builddir "/qemustatedir-XXXXXX"
  # define CONFIGDIRTEMPLATE abs_builddir "/qemuconfigdir-XXXXXX"
-diff --git a/tests/testutilsqemu.h b/tests/testutilsqemu.h
+diff --git tests/testutilsqemu.h tests/testutilsqemu.h
 index d59fa53239..a8de6eb52b 100644
---- a/tests/testutilsqemu.h
-+++ b/tests/testutilsqemu.h
+--- tests/testutilsqemu.h
++++ tests/testutilsqemu.h
 @@ -33,6 +33,10 @@ enum {
      GIC_BOTH,
  };

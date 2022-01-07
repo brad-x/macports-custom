@@ -13,10 +13,10 @@ Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
  src/qemu/qemu_capabilities.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/src/qemu/qemu_capabilities.c b/src/qemu/qemu_capabilities.c
+diff --git src/qemu/qemu_capabilities.c src/qemu/qemu_capabilities.c
 index 56325d1762..081c43e728 100644
---- a/src/qemu/qemu_capabilities.c
-+++ b/src/qemu/qemu_capabilities.c
+--- src/qemu/qemu_capabilities.c
++++ src/qemu/qemu_capabilities.c
 @@ -1084,6 +1084,10 @@ virQEMUCapsInitGuestFromBinary(virCaps *caps,
          virCapabilitiesAddGuestDomain(guest, VIR_DOMAIN_VIRT_KVM,
                                        NULL, NULL, 0, NULL);

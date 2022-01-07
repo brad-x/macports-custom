@@ -15,10 +15,10 @@ Signed-off-by: Andrea Bolognani <abologna@redhat.com>
  4 files changed, 50 insertions(+), 1 deletion(-)
  create mode 100644 docs/macos.rst
 
-diff --git a/docs/docs.html.in b/docs/docs.html.in
+diff --git docs/docs.html.in docs/docs.html.in
 index 8132090762..225827b693 100644
---- a/docs/docs.html.in
-+++ b/docs/docs.html.in
+--- docs/docs.html.in
++++ docs/docs.html.in
 @@ -16,6 +16,9 @@
          <dt><a href="windows.html">Windows</a></dt>
          <dd>Downloads for Windows</dd>
@@ -29,10 +29,10 @@ index 8132090762..225827b693 100644
          <dt><a href="migration.html">Migration</a></dt>
          <dd>Migrating guests between machines</dd>
  
-diff --git a/docs/index.html.in b/docs/index.html.in
+diff --git docs/index.html.in docs/index.html.in
 index 2c4aa7c6d0..3c065badb7 100644
---- a/docs/index.html.in
-+++ b/docs/index.html.in
+--- docs/index.html.in
++++ docs/index.html.in
 @@ -28,7 +28,8 @@
            <a href="drvlxc.html">LXC</a>,
            <a href="drvbhyve.html">BHyve</a> and
@@ -43,11 +43,11 @@ index 2c4aa7c6d0..3c065badb7 100644
          <li>is used by many <a href="apps.html">applications</a></li>
        </ul>
        <p>Recent / forthcoming <a href="news.html">release changes</a></p>
-diff --git a/docs/macos.rst b/docs/macos.rst
+diff --git docs/macos.rst docs/macos.rst
 new file mode 100644
 index 0000000000..7792ad8819
 --- /dev/null
-+++ b/docs/macos.rst
++++ docs/macos.rst
 @@ -0,0 +1,44 @@
 +.. role:: since
 +
@@ -93,10 +93,10 @@ index 0000000000..7792ad8819
 +   $ brew services start libvirt
 +
 +Once started, you can use virsh as you would on Linux.
-diff --git a/docs/meson.build b/docs/meson.build
+diff --git docs/meson.build docs/meson.build
 index 3e912f21ad..717d3c025c 100644
---- a/docs/meson.build
-+++ b/docs/meson.build
+--- docs/meson.build
++++ docs/meson.build
 @@ -106,6 +106,7 @@ docs_rst_files = [
    'hacking',
    'libvirt-go',
