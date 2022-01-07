@@ -10,12 +10,11 @@ legacysupport.newest_darwin_requires_legacy 10
 
 # Remember to update libvirt and py-libvirt at the same time.
 name                libvirt-hvf
-version             7.10.0
+version             82d5140-git
 revision            0
-distfiles           libvirt-7.10.0.tar.xz
-checksums           rmd160  015d80331e44508dbe7c2f3cafaa140d65a892e8 \
-                    sha256  cb318014af097327928c6e3d72922e3be02a3e6401247b2aa52d9ab8e0b480f9 \
-                    size    8798000
+checksums           rmd160  67d8a62e3d02a1c675f62c92652a351f226a1a15 \
+                    sha256  c3c62ba44201ed61f7f39e1e700d905302b0577e7415b27ca04ba1a79f05f122 \
+                    size    18613638
 
 categories          sysutils
 license             LGPL-2.1+
@@ -29,6 +28,10 @@ long_description    A toolkit to interact with the virtualization \
 
 homepage            https://libvirt.org
 master_sites        ${homepage}/sources/
+homepage            http://github.com/libvirt/libvirt/
+master_sites        https://github.com/libvirt/libvirt/tarball/82d5140
+
+
 use_xz              yes
 
 set python_branch   3.9
