@@ -26,13 +26,12 @@ description         Libvirt - The Virtualization API
 long_description    A toolkit to interact with the virtualization \
                     capabilities of modern hypervisors.
 
-homepage            https://libvirt.org
-master_sites        ${homepage}/sources/
 homepage            https://gitlab.com/abologna/libvirt/
 master_sites        https://gitlab.com/abologna/libvirt/-/archive/hvf/
 
 fetch.type          git
 git.url             https://gitlab.com/abologna/libvirt.git
+git.branch          hvf
 
 post-fetch {
     system -W ${worksrcpath} "git submodule update --init"
