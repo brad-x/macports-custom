@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                vde2
-version             534a09-git
+version             74278b9b-git
 categories          net
 platforms           darwin
 maintainers         nomaintainer
@@ -15,12 +15,11 @@ long_description    VDE is an ethernet compliant virtual network that can be \
                     spawned over a set of physical computer over the Internet.
 
 homepage            http://github.com/virtualsquare/vde-2
-master_sites        https://github.com/virtualsquare/vde-2/tarball/534a09453f956f8f545ba4fe37413be1a139314d
-# use_bzip2           yes
+master_sites        https://github.com/virtualsquare/vde-2/tarball/74278b9b7cf816f0356181f387012fdeb6d65b52
 
-checksums           rmd160  eb3f8f5f87c9c7e8fe7afd205485e8532e4aec21 \
-                    sha256  2955839f6d0ccac3e17c9aeec88204ce78bc93c846ace9b323e5e69e6f090a95 \
-                    size    234004
+checksums           rmd160  dd96a8a21316d78549e514d9868ec2d858783d54 \
+                    sha256  4af3e715259e881b0dbd22516009bd0246801d0065b89c81ba8a1c966aac65fd \
+                    size    234069
 
 use_autoreconf      yes
 
@@ -36,7 +35,7 @@ configure.args      --disable-kernel-switch \
 # See https://github.com/virtualsquare/vde-2/issues/6
 use_parallel_build  no
 
-patchfiles          ENOBUFS.patch
+# patchfiles          ENOBUFS.patch
 
 post-destroot {
     set docdir ${destroot}${prefix}/share/doc/${name}
