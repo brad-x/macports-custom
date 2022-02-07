@@ -11,7 +11,7 @@ legacysupport.newest_darwin_requires_legacy 10
 # Remember to update libvirt and py-libvirt at the same time.
 name                libvirt
 version             8.0.0
-revision            0
+revision            2
 checksums           rmd160  cf7346424f1944e6817dffe5984301df8eba519f \
                     sha256  51e6e8ff04bafe96d7e314b213dcd41fb1163d9b4f0f75cdab01e663728f4cf6 \
                     size    8860124
