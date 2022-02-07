@@ -55,7 +55,8 @@ depends_lib         port:curl \
 compiler.blacklist-append apple-gcc* gcc-3.3 *gcc-4.* macports-clang-3.3 {clang < 503}
 
 patchfiles-append   patch-meson.diff \
-                    libvirt-omit-accel-cmd.diff
+                    libvirt-omit-accel-cmd.diff \
+                    dont-error-on-unsupported.diff
 
 # libvirt build scripts require python 3.x
 configure.python    ${prefix}/bin/python${python_branch}
