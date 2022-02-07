@@ -1,0 +1,71 @@
+diff --git a/src/ch/ch_driver.c b/src/ch/ch_driver.c
+index 3cbc668..53e0872 100644
+--- a/src/ch/ch_driver.c
++++ b/src/ch/ch_driver.c
+@@ -1073,6 +1073,8 @@ chDomainHelperGetVcpus(virDomainObj *vm,
+             if (virProcessGetStatInfo(&vcpuinfo->cpuTime,
+                                       &vcpuinfo->cpu, NULL,
+                                       vm->pid, vcpupid) < 0) {
++                virReportSystemError(errno, "%s",
++                                      _("cannot get vCPU placement & pCPU time"));
+                 return -1;
+             }
+         }
+diff --git a/src/qemu/qemu_driver.c b/src/qemu/qemu_driver.c
+index 65ac5ef..d3d76c0 100644
+--- a/src/qemu/qemu_driver.c
++++ b/src/qemu/qemu_driver.c
+@@ -1359,6 +1359,8 @@ qemuDomainHelperGetVcpus(virDomainObj *vm,
+             if (virProcessGetStatInfo(&vcpuinfo->cpuTime,
+                                       &vcpuinfo->cpu, NULL,
+                                       vm->pid, vcpupid) < 0) {
++                virReportSystemError(errno, "%s",
++                                     _("cannot get vCPU placement & pCPU time"));
+                 return -1;
+             }
+         }
+@@ -2519,6 +2521,8 @@ qemuDomainGetInfo(virDomainPtr dom,
+     if (virDomainObjIsActive(vm)) {
+         if (virProcessGetStatInfo(&(info->cpuTime), NULL, NULL,
+                                   vm->pid, 0) < 0) {
++            virReportError(VIR_ERR_OPERATION_FAILED, "%s",
++                           _("cannot read cputime for domain"));
+             goto cleanup;
+         }
+     }
+@@ -10526,7 +10530,8 @@ qemuDomainMemoryStatsInternal(virQEMUDriver *driver,
+     }
+ 
+     if (virProcessGetStatInfo(NULL, NULL, &rss, vm->pid, 0) < 0) {
+-        virResetLastError();
++        virReportError(VIR_ERR_OPERATION_FAILED, "%s",
++                       _("cannot get RSS for domain"));
+     } else {
+         stats[ret].tag = VIR_DOMAIN_MEMORY_STAT_RSS;
+         stats[ret].val = rss;
+diff --git a/src/util/virprocess.c b/src/util/virprocess.c
+index 85d8c8e..b559a42 100644
+--- a/src/util/virprocess.c
++++ b/src/util/virprocess.c
+@@ -1784,10 +1784,7 @@ virProcessGetStatInfo(unsigned long long *cpuTime,
+         virStrToLong_ullp(proc_stat[VIR_PROCESS_STAT_STIME], NULL, 10, &systime) < 0 ||
+         virStrToLong_l(proc_stat[VIR_PROCESS_STAT_RSS], NULL, 10, &rss) < 0 ||
+         virStrToLong_i(proc_stat[VIR_PROCESS_STAT_PROCESSOR], NULL, 10, &cpu) < 0) {
+-        virReportError(VIR_ERR_INTERNAL_ERROR,
+-                       _("cannot parse process status data for pid '%d/%d'"),
+-                       (int) pid, (int) tid);
+-        return -1;
++        VIR_WARN("cannot parse process status data");
+     }
+ 
+     /* We got jiffies
+@@ -1884,8 +1881,7 @@ virProcessGetStatInfo(unsigned long long *cpuTime G_GNUC_UNUSED,
+                       pid_t pid G_GNUC_UNUSED,
+                       pid_t tid G_GNUC_UNUSED)
+ {
+-    virReportSystemError(ENOSYS, "%s",
+-                         _("Process statistics data is not supported on this platform"));
++    errno = ENOSYS;
+     return -1;
+ }
+ 
