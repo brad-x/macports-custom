@@ -20,7 +20,7 @@ index 85d8c8e747cb622754a339cb46ebc3bf2ee79def..b559a4257ec6621eced5b3b75edd64a1
  {
 -    virReportSystemError(ENOSYS, "%s",
 -                         _("Process statistics data is not supported on this platform"));
-+    errno = ENOSYS;
++        VIR_WARN("cannot parse process statistics data");
      return -1;
  }
  
