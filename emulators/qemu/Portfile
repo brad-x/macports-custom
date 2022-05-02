@@ -64,7 +64,7 @@ patchfiles-append       patch-qemu-punchhole.diff
 patchfiles-append       patch-qemu-net-colo.diff
 
 # MADV_DONTNEED workaround
-patchfiles-append       patch-qemu-include-qemu-osdep.diff
+# patchfiles-append       patch-qemu-include-qemu-osdep.diff
 
 # MAP_JIT workaround
 patchfiles-append       patch-qemu-tcg-region.diff
