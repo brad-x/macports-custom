@@ -20,10 +20,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  scripts/meson-buildoptions.sh |  1 +
  3 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/meson.build b/meson.build
+diff --git meson.build meson.build
 index 2d6601467f..806f3869f9 100644
---- a/meson.build
-+++ b/meson.build
+--- meson.build
++++ meson.build
 @@ -522,6 +522,18 @@ if cocoa.found() and get_option('gtk').enabled()
    error('Cocoa and GTK+ cannot be enabled at the same time')
  endif
@@ -61,10 +61,10 @@ index 2d6601467f..806f3869f9 100644
  endif
  summary_info += {'SDL support':       sdl}
  summary_info += {'SDL image support': sdl_image}
-diff --git a/meson_options.txt b/meson_options.txt
+diff --git meson_options.txt meson_options.txt
 index 52b11cead4..d2c0b6b412 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
+--- meson_options.txt
++++ meson_options.txt
 @@ -175,6 +175,8 @@ option('netmap', type : 'feature', value : 'auto',
         description: 'netmap network backend support')
  option('vde', type : 'feature', value : 'auto',
@@ -74,10 +74,10 @@ index 52b11cead4..d2c0b6b412 100644
  option('virglrenderer', type : 'feature', value : 'auto',
         description: 'virgl rendering support')
  option('vnc', type : 'feature', value : 'auto',
-diff --git a/scripts/meson-buildoptions.sh b/scripts/meson-buildoptions.sh
+diff --git scripts/meson-buildoptions.sh scripts/meson-buildoptions.sh
 index 9ee684ef03..30946f3798 100644
---- a/scripts/meson-buildoptions.sh
-+++ b/scripts/meson-buildoptions.sh
+--- scripts/meson-buildoptions.sh
++++ scripts/meson-buildoptions.sh
 @@ -116,6 +116,7 @@ meson_options_help() {
    printf "%s\n" '  usb-redir       libusbredir support'
    printf "%s\n" '  vde             vde network backend support'

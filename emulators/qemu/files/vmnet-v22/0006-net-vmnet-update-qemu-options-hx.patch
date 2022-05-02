@@ -10,10 +10,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  qemu-options.hx | 25 +++++++++++++++++++++++++
  1 file changed, 25 insertions(+)
 
-diff --git a/qemu-options.hx b/qemu-options.hx
+diff --git qemu-options.hx qemu-options.hx
 index 5ce0ada75e..ea00d0eeb6 100644
---- a/qemu-options.hx
-+++ b/qemu-options.hx
+--- qemu-options.hx
++++ qemu-options.hx
 @@ -2743,6 +2743,25 @@ DEF("netdev", HAS_ARG, QEMU_OPTION_netdev,
  #ifdef __linux__
      "-netdev vhost-vdpa,id=str,vhostdev=/path/to/dev\n"

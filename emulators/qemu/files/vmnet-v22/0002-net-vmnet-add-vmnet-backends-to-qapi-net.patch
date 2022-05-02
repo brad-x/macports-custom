@@ -29,10 +29,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  create mode 100644 net/vmnet-shared.c
  create mode 100644 net/vmnet_int.h
 
-diff --git a/net/clients.h b/net/clients.h
+diff --git net/clients.h net/clients.h
 index 92f9b59aed..c9157789f2 100644
---- a/net/clients.h
-+++ b/net/clients.h
+--- net/clients.h
++++ net/clients.h
 @@ -63,4 +63,15 @@ int net_init_vhost_user(const Netdev *netdev, const char *name,
  
  int net_init_vhost_vdpa(const Netdev *netdev, const char *name,
@@ -49,10 +49,10 @@ index 92f9b59aed..c9157789f2 100644
 +#endif /* CONFIG_VMNET */
 +
  #endif /* QEMU_NET_CLIENTS_H */
-diff --git a/net/meson.build b/net/meson.build
+diff --git net/meson.build net/meson.build
 index 847bc2ac85..00a88c4951 100644
---- a/net/meson.build
-+++ b/net/meson.build
+--- net/meson.build
++++ net/meson.build
 @@ -42,4 +42,11 @@ softmmu_ss.add(when: 'CONFIG_POSIX', if_true: files(tap_posix))
  softmmu_ss.add(when: 'CONFIG_WIN32', if_true: files('tap-win32.c'))
  softmmu_ss.add(when: 'CONFIG_VHOST_NET_VDPA', if_true: files('vhost-vdpa.c'))
@@ -65,10 +65,10 @@ index 847bc2ac85..00a88c4951 100644
 +)
 +softmmu_ss.add(when: vmnet, if_true: vmnet_files)
  subdir('can')
-diff --git a/net/net.c b/net/net.c
+diff --git net/net.c net/net.c
 index f0d14dbfc1..1dbb64b935 100644
---- a/net/net.c
-+++ b/net/net.c
+--- net/net.c
++++ net/net.c
 @@ -1021,6 +1021,11 @@ static int (* const net_client_init_fun[NET_CLIENT_DRIVER__MAX])(
  #ifdef CONFIG_L2TPV3
          [NET_CLIENT_DRIVER_L2TPV3]    = net_init_l2tpv3,
@@ -93,11 +93,11 @@ index f0d14dbfc1..1dbb64b935 100644
  #endif
      };
  
-diff --git a/net/vmnet-bridged.m b/net/vmnet-bridged.m
+diff --git net/vmnet-bridged.m net/vmnet-bridged.m
 new file mode 100644
 index 0000000000..91c1a2f2c7
 --- /dev/null
-+++ b/net/vmnet-bridged.m
++++ net/vmnet-bridged.m
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet-bridged.m
@@ -124,11 +124,11 @@ index 0000000000..91c1a2f2c7
 +  error_setg(errp, "vmnet-bridged is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet-common.m b/net/vmnet-common.m
+diff --git net/vmnet-common.m net/vmnet-common.m
 new file mode 100644
 index 0000000000..06326efb1c
 --- /dev/null
-+++ b/net/vmnet-common.m
++++ net/vmnet-common.m
 @@ -0,0 +1,20 @@
 +/*
 + * vmnet-common.m - network client wrapper for Apple vmnet.framework
@@ -150,11 +150,11 @@ index 0000000000..06326efb1c
 +
 +#include <vmnet/vmnet.h>
 +
-diff --git a/net/vmnet-host.c b/net/vmnet-host.c
+diff --git net/vmnet-host.c net/vmnet-host.c
 new file mode 100644
 index 0000000000..a461d507c5
 --- /dev/null
-+++ b/net/vmnet-host.c
++++ net/vmnet-host.c
 @@ -0,0 +1,24 @@
 +/*
 + * vmnet-host.c
@@ -180,11 +180,11 @@ index 0000000000..a461d507c5
 +  error_setg(errp, "vmnet-host is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet-shared.c b/net/vmnet-shared.c
+diff --git net/vmnet-shared.c net/vmnet-shared.c
 new file mode 100644
 index 0000000000..6dfb133a18
 --- /dev/null
-+++ b/net/vmnet-shared.c
++++ net/vmnet-shared.c
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet-shared.c
@@ -211,11 +211,11 @@ index 0000000000..6dfb133a18
 +  error_setg(errp, "vmnet-shared is not implemented yet");
 +  return -1;
 +}
-diff --git a/net/vmnet_int.h b/net/vmnet_int.h
+diff --git net/vmnet_int.h net/vmnet_int.h
 new file mode 100644
 index 0000000000..c383038a1d
 --- /dev/null
-+++ b/net/vmnet_int.h
++++ net/vmnet_int.h
 @@ -0,0 +1,25 @@
 +/*
 + * vmnet_int.h
@@ -242,10 +242,10 @@ index 0000000000..c383038a1d
 +
 +
 +#endif /* VMNET_INT_H */
-diff --git a/qapi/net.json b/qapi/net.json
+diff --git qapi/net.json qapi/net.json
 index 7fab2e7cd8..4bff1c4e37 100644
---- a/qapi/net.json
-+++ b/qapi/net.json
+--- qapi/net.json
++++ qapi/net.json
 @@ -452,6 +452,120 @@
      '*vhostdev':     'str',
      '*queues':       'int' } }

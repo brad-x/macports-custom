@@ -17,10 +17,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  net/vmnet_int.h    |  40 ++++-
  3 files changed, 490 insertions(+), 5 deletions(-)
 
-diff --git a/net/vmnet-common.m b/net/vmnet-common.m
+diff --git net/vmnet-common.m net/vmnet-common.m
 index 06326efb1c..2cb60b9ddd 100644
---- a/net/vmnet-common.m
-+++ b/net/vmnet-common.m
+--- net/vmnet-common.m
++++ net/vmnet-common.m
 @@ -10,6 +10,8 @@
   */
  
@@ -391,10 +391,10 @@ index 06326efb1c..2cb60b9ddd 100644
 +        g_free(s->iov_buf[i].iov_base);
 +    }
 +}
-diff --git a/net/vmnet-shared.c b/net/vmnet-shared.c
+diff --git net/vmnet-shared.c net/vmnet-shared.c
 index 6dfb133a18..18cadc72bd 100644
---- a/net/vmnet-shared.c
-+++ b/net/vmnet-shared.c
+--- net/vmnet-shared.c
++++ net/vmnet-shared.c
 @@ -10,16 +10,105 @@
  
  #include "qemu/osdep.h"
@@ -505,10 +505,10 @@ index 6dfb133a18..18cadc72bd 100644
 +    xpc_release(if_desc);
 +    return result;
  }
-diff --git a/net/vmnet_int.h b/net/vmnet_int.h
+diff --git net/vmnet_int.h net/vmnet_int.h
 index c383038a1d..adf6e8c20d 100644
---- a/net/vmnet_int.h
-+++ b/net/vmnet_int.h
+--- net/vmnet_int.h
++++ net/vmnet_int.h
 @@ -15,11 +15,49 @@
  #include "clients.h"
  

@@ -10,10 +10,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  net/vmnet-host.c | 116 ++++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 110 insertions(+), 6 deletions(-)
 
-diff --git a/net/vmnet-host.c b/net/vmnet-host.c
+diff --git net/vmnet-host.c net/vmnet-host.c
 index a461d507c5..05f8d78864 100644
---- a/net/vmnet-host.c
-+++ b/net/vmnet-host.c
+--- net/vmnet-host.c
++++ net/vmnet-host.c
 @@ -9,16 +9,120 @@
   */
  

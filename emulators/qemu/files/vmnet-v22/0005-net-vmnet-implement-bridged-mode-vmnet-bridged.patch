@@ -10,10 +10,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  net/vmnet-bridged.m | 137 ++++++++++++++++++++++++++++++++++++++++++--
  1 file changed, 132 insertions(+), 5 deletions(-)
 
-diff --git a/net/vmnet-bridged.m b/net/vmnet-bridged.m
+diff --git net/vmnet-bridged.m net/vmnet-bridged.m
 index 91c1a2f2c7..46d2282863 100644
---- a/net/vmnet-bridged.m
-+++ b/net/vmnet-bridged.m
+--- net/vmnet-bridged.m
++++ net/vmnet-bridged.m
 @@ -10,16 +10,143 @@
  
  #include "qemu/osdep.h"

@@ -10,10 +10,10 @@ Tested-by: Akihiko Odaki <akihiko.odaki@gmail.com>
  hmp-commands.hx | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/hmp-commands.hx b/hmp-commands.hx
+diff --git hmp-commands.hx hmp-commands.hx
 index 8476277aa9..8f3d78f177 100644
---- a/hmp-commands.hx
-+++ b/hmp-commands.hx
+--- hmp-commands.hx
++++ hmp-commands.hx
 @@ -1265,7 +1265,11 @@ ERST
      {
          .name       = "netdev_add",
