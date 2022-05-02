@@ -8,7 +8,7 @@ PortGroup legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 15
 
 name                    qemu
-version                 6.2.0
+version                 7.0.0
 revision                1
 categories              emulators
 license                 GPL-2+
@@ -26,9 +26,9 @@ homepage                https://www.qemu.org
 master_sites            https://download.qemu.org/
 use_xz                  yes
 
-checksums               rmd160  1860d0ab3729a6e247ef69543249d60278d8496e \
-                        sha256  68e15d8e45ac56326e0b9a4afa8b49a3dfe8aba3488221d098c84698bca65b45 \
-                        size    115667324
+checksums               rmd160  7da5fae7e6c059bb5f3effc6efd3816dc6021480 \
+                        sha256  f6b375c7951f728402798b0baabb2d86478ca53d44cedbefabbe1c46bf46f839 \
+                        size    125117636
 
 depends_build           port:texinfo \
                         port:libtool \
