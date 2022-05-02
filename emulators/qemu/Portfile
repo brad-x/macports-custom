@@ -60,9 +60,6 @@ patchfiles-append       patch-qemu-configure.diff
 # "error: unknown type name 'fpunchhole_t'" pre-10.12.4
 patchfiles-append       patch-qemu-punchhole.diff
 
-# "cp: illegal option -- a"
-patchfiles-append       patch-qemu-scripts-entitlements.diff
-
 # IPPROTO workarounds
 patchfiles-append       patch-qemu-net-colo.diff
 
