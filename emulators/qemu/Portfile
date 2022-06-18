@@ -54,6 +54,9 @@ patchfiles              vmnet-v22/0001-net-vmnet-add-vmnet-dependency-and-custom
                         vmnet-v22/0006-net-vmnet-update-qemu-options-hx.patch \
                         vmnet-v22/0007-net-vmnet-update-hmp-commands-hx.patch
 
+# This patch allows window resize with zoom to fit enabled
+patchfiles-append       patch-cocoa-resize.diff
+
 # This patch sets the python interpreter from meson's shebang line
 patchfiles-append       patch-qemu-configure.diff
 
