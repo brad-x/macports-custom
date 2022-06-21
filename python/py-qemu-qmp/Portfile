@@ -23,7 +23,7 @@ checksums           rmd160  51c1b4e7a18e5699b662efbdce7371971b2c740b \
                     sha256  829d1b4c3c35cbc3781839338040adbd11c6be0a9d15c6a433323ebb795cfae6 \
                     size    66469
 
-python.pep517       no
+python.pep517       yes
 
 if {${name} ne ${subport}} {
 
