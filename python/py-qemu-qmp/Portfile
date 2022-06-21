@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-qemu-qmp
+version             0.0.0a0
+categories-append   devel
+platforms           darwin
+license             BSD MIT
+supported_archs     noarch
+
+python.versions     36 37 38 39 310
+
+maintainers         openmaintainer
+
+description         An asyncio library for communicating with QEMU Monitor Protocol (“QMP”) servers
+long_description    ${description}
+
+homepage            https://gitlab.com/qemu-project/python-qemu-qmp
+
+checksums           rmd160  d785fa664615d09baf9e2154abef9bc73cc56754 \
+                    sha256  6ae30a8bb9ca9687c59ed3bfec6ff12d32c7d268227e5812f7e42af625687e45 \
+                    size    49086
+
+if {${name} ne ${subport}} {
+
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_test-append \
+                        port:py${python.version}-pytest
+
+    test.run            yes
+    test.cmd            py.test-${python.branch}
+    test.target
+
+    livecheck.type      none
+}
