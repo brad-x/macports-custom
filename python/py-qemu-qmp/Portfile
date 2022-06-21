@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           python 1.0
 
-name                py-qemu-qmp
+name                py-qemu.qmp
 version             0.0.0a0
 categories-append   devel
 platforms           darwin
