@@ -19,9 +19,9 @@ long_description    ${description}
 
 homepage            https://gitlab.com/qemu-project/python-qemu-qmp
 
-checksums           rmd160  d785fa664615d09baf9e2154abef9bc73cc56754 \
-                    sha256  6ae30a8bb9ca9687c59ed3bfec6ff12d32c7d268227e5812f7e42af625687e45 \
-                    size    49086
+checksums           rmd160  51c1b4e7a18e5699b662efbdce7371971b2c740b \
+                    sha256  829d1b4c3c35cbc3781839338040adbd11c6be0a9d15c6a433323ebb795cfae6 \
+                    size    66469
 
 if {${name} ne ${subport}} {
 
