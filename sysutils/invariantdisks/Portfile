@@ -29,6 +29,7 @@ post-destroot {
 }
 
 startupitem.create  yes
+startupitem.pidfile manual ${prefix}/var/run/InvariantDisks.pid
 startupitem.start   "${prefix}/bin/InvariantDisks"
 startupitem.restart "/bin/kill -HUP \$(/bin/cat ${prefix}/var/run/InvariantDisks.pid)"
 startupitem.stop    "/bin/kill -15 \$(/bin/cat ${prefix}/var/run/InvariantDisks.pid)"
