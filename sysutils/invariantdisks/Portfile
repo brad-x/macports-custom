@@ -24,14 +24,11 @@ checksums           rmd160  70fb4402303a873cb878b3f9eb84329992e70e19 \
                     sha256  9a23378cf2483b4e8592a44be1d93e5f6535d4a75a1ab60897b5953bd6fa9a35 \
                     size    22579
 
-# destroot {
-#     xinstall -m 0755 ${worksrcpath}/build/hyperkit \
-#                     ${destroot}${prefix}/bin/${name}
-
-#     xinstall -m 0644 ${worksrcpath}/${name}.1 \
-#                      ${destroot}${prefix}/share/man/man1
-# }
-
 post-destroot {
     move ${destroot}${applications_dir}/InvariantDisks ${destroot}${prefix}/bin
 }
+
+startupitem.create  yes
+startupitem.start   "${prefix}/bin/InvariantDisks"
+startupitem.restart "/bin/kill -HUP \$(/bin/cat ${prefix}/var/run/InvariantDisks.pid)"
+startupitem.stop    "/bin/kill -15 \$(/bin/cat ${prefix}/var/run/InvariantDisks.pid)"
