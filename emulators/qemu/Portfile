@@ -226,8 +226,7 @@ variant vnc description {Support VNC server} {
                             --enable-vnc-jpeg
     depends_lib-append      path:lib/pkgconfig/gnutls.pc:gnutls \
                             port:cyrus-sasl2 \
-                            path:include/turbojpeg.h:libjpeg-turbo \
-                            port:libpng
+                            path:include/turbojpeg.h:libjpeg-turbo
 }
 
 variant vde description {Support VDE networking} {
