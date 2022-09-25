@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+
+name                chntpw
+version             0.99.6
+categories          sysutils
+platforms           darwin
+license             GPL-2+
+maintainers         brad-x
+description         Offline NT Password Editor
+long_description    This little program will enable you to view some information and \
+					change user passwords in a Windows NT SAM userdatabase file.
+homepage            https://github.com/Tody-Guo/chntpw
+master_sites        https://github.com/sidneys/chntpw/archive/
+
+checksums           rmd160  9a98c3f0bddbaf16515f9e45f457b3649f45f6b3 \
+					sha256  e915f5addc2673317285c6f022c94da7fdee415d9800cd38540a13706706786b \
+					size    95944
+
+depends_lib         port:openssl10
