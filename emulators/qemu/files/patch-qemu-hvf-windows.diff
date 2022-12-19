@@ -1,5 +1,5 @@
---- hvf.c.orig	2022-12-19 11:07:34
-+++ hvf.c	2022-12-19 11:10:48
+--- targets/arm/hvf/hvf.c.orig	2022-12-19 11:07:34
++++ targets/arm/hvf/hvf.c	2022-12-19 11:10:48
 @@ -86,6 +86,8 @@
  #define TMR_CTL_IMASK   (1 << 1)
  #define TMR_CTL_ISTATUS (1 << 2)
