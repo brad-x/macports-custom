@@ -111,7 +111,8 @@ configure.args-append   --disable-cocoa \
                         --disable-png \
                         --disable-zstd \
                         --disable-dbus-display \
-                        --enable-virtfs
+                        --enable-virtfs \
+                        --with-git-submodules=validate
 
 # Use 'smbd' installed by samba port, rather than macOS; latter does not work with qemu.
 configure.args-append   --smbd=${prefix}/sbin/smbd
