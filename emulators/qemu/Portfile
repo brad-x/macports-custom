@@ -24,6 +24,10 @@ long_description        QEMU is a generic and open source machine emulator. \
 homepage                https://www.qemu.org
 master_sites            https://github.com/utmapp/qemu/archive/refs/tags/
 
+checksums           rmd160  e743510038921bda1d1eceffa1289bb2d3bafd12 \
+                    sha256  82da2b180964baa43166f2c382cf4f66665a71057955d7bdd4559df18eb17c55 \
+                    size    31416863
+
 depends_build           port:texinfo \
                         port:libtool \
                         port:meson \
