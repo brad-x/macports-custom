@@ -8,6 +8,7 @@ PortGroup legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 16
 
 name                    qemu
+version                 7.2.0-utm
 revision                1
 categories              emulators
 license                 GPL-2+
@@ -22,7 +23,6 @@ long_description        QEMU is a generic and open source machine emulator. \
 
 homepage                https://www.qemu.org
 master_sites            https://github.com/utmapp/qemu/archive/refs/tags/
-
 
 depends_build           port:texinfo \
                         port:libtool \
