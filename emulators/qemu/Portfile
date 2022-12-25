@@ -3,7 +3,6 @@
 PortSystem 1.0
 PortGroup compiler_blacklist_versions 1.0
 PortGroup legacysupport 1.1
-PortGroup           github 1.0
 
 # clock_gettime
 legacysupport.newest_darwin_requires_legacy 16
@@ -22,15 +21,8 @@ long_description        QEMU is a generic and open source machine emulator. \
                         achieves very good performance.
 
 homepage                https://www.qemu.org
+master_sites            https://github.com/utmapp/qemu/archive/refs/tags/
 
-github.setup        utmapp qemu 7.2.0-utm v
-
-# Fetch from git instead of distfile because it needs submodules.
-fetch.type          git
-
-post-fetch {
-    system -W ${worksrcpath} "git submodule update --init"
-}
 
 depends_build           port:texinfo \
                         port:libtool \
