@@ -24,11 +24,13 @@ long_description        QEMU is a generic and open source machine emulator. \
 homepage                https://www.qemu.org
 
 github.setup        utmapp qemu 7.2.0-utm v
-github.tarball_from archive
 
-checksums           rmd160  e743510038921bda1d1eceffa1289bb2d3bafd12 \
-                    sha256  82da2b180964baa43166f2c382cf4f66665a71057955d7bdd4559df18eb17c55 \
-                    size    31416863
+# Fetch from git instead of distfile because it needs submodules.
+fetch.type          git
+
+post-fetch {
+    system -W ${worksrcpath} "git submodule update --init"
+}
 
 depends_build           port:texinfo \
                         port:libtool \
