@@ -6675,7 +6675,7 @@ diff -ru --un qemu-7.2.0/tcg/tcg.c qemu-utm-7.2.0/tcg/tcg.c
 diff -ru --un qemu-7.2.0/ui/cocoa/app_controller.m qemu-utm-7.2.0/ui/cocoa/app_controller.m
 --- qemu-7.2.0/ui/cocoa/app_controller.m	1969-12-31 19:00:00
 +++ qemu-utm-7.2.0/ui/cocoa/app_controller.m	2022-12-26 13:45:04
-@@ -0,0 +1,460 @@
+@@ -0,0 +1,459 @@
 +/*
 + * QEMU Cocoa CG display driver
 + *
@@ -7138,7 +7138,7 @@ diff -ru --un qemu-7.2.0/ui/cocoa/app_controller.m qemu-utm-7.2.0/ui/cocoa/app_c
 diff -ru --un qemu-7.2.0/ui/cocoa/main.m qemu-utm-7.2.0/ui/cocoa/main.m
 --- qemu-7.2.0/ui/cocoa/main.m	1969-12-31 19:00:00
 +++ qemu-utm-7.2.0/ui/cocoa/main.m	2022-12-26 13:45:04
-@@ -0,0 +1,1093 @@
+@@ -0,0 +1,1092 @@
 +/*
 + * QEMU Cocoa CG display driver
 + *
