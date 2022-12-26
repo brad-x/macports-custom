@@ -44,6 +44,7 @@ depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:zlib \
                         path:lib/pkgconfig/pixman-1.pc:libpixman
 
+patch.pre_args          -p1
 patchfiles-append       patch-qemu-utm.diff
 
 # "ERROR: You need at least GCC v7.5 or Clang v6.0 (or XCode Clang v10.0)"
