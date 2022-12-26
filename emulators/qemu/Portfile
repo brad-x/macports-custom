@@ -8,7 +8,7 @@ PortGroup legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 16
 
 name                    qemu
-version                 7.2.0-utm
+version                 7.2.0
 revision                1
 categories              emulators
 license                 GPL-2+
@@ -22,11 +22,12 @@ long_description        QEMU is a generic and open source machine emulator. \
                         achieves very good performance.
 
 homepage                https://www.qemu.org
-master_sites            https://github.com/utmapp/qemu/archive/refs/tags/
+master_sites            https://download.qemu.org/
+use_xz                  yes
 
-checksums           rmd160  e743510038921bda1d1eceffa1289bb2d3bafd12 \
-                    sha256  82da2b180964baa43166f2c382cf4f66665a71057955d7bdd4559df18eb17c55 \
-                    size    31416863
+checksums               rmd160  50661dd45f91d900241e0e6b919140a6b8a2b2cf \
+                        sha256  5b49ce2687744dad494ae90a898c52204a3406e84d072482a1e1be854eeb2157 \
+                        size    122408576
 
 depends_build           port:texinfo \
                         port:libtool \
@@ -110,7 +111,7 @@ configure.args-append   --disable-cocoa \
                         --disable-png \
                         --disable-zstd \
                         --disable-dbus-display \
-                        --enable-virtfs 
+                        --enable-virtfs
 
 # Use 'smbd' installed by samba port, rather than macOS; latter does not work with qemu.
 configure.args-append   --smbd=${prefix}/sbin/smbd
