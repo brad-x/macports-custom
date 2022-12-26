@@ -6702,7 +6702,6 @@ diff -ru --un qemu-7.2.0/ui/cocoa/app_controller.m qemu-utm-7.2.0/ui/cocoa/app_c
 +
 +#include "qemu/osdep.h"
 +
-+#include "qemu-common.h"
 +#include "ui/cocoa.h"
 +#include "sysemu/sysemu.h"
 +#include "sysemu/runstate.h"
@@ -7170,7 +7169,6 @@ diff -ru --un qemu-7.2.0/ui/cocoa/main.m qemu-utm-7.2.0/ui/cocoa/main.m
 +
 +#include <crt_externs.h>
 +
-+#include "qemu-common.h"
 +#include "ui/cocoa.h"
 +#include "ui/input.h"
 +#include "sysemu/sysemu.h"
