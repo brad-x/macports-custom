@@ -44,6 +44,8 @@ depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
                         port:zlib \
                         path:lib/pkgconfig/pixman-1.pc:libpixman
 
+patchfiles-append       patch-qemu-utm.diff
+
 # "ERROR: You need at least GCC v7.5 or Clang v6.0 (or XCode Clang v10.0)"
 compiler.blacklist      {clang < 1000} {macports-clang-[3-5].*} {macports-gcc-[56]} {*gcc-[34].*}
 if {${os.platform} eq "darwin" && ${os.major} < 11 && [string match *clang* ${configure.compiler}]} {
