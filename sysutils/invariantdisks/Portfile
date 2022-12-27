@@ -24,7 +24,7 @@ checksums           rmd160  70fb4402303a873cb878b3f9eb84329992e70e19 \
                     sha256  9a23378cf2483b4e8592a44be1d93e5f6535d4a75a1ab60897b5953bd6fa9a35 \
                     size    22579
 
-configure.sdk_version   10.15
+configure.sdk_version   12
 
 post-destroot {
     move ${destroot}${applications_dir}/InvariantDisks ${destroot}${prefix}/bin
