@@ -6709,39 +6709,6 @@ diff -ru --un qemu-7.2.0/ui/console.c qemu-utm-7.2.0/ui/console.c
                                           con->scanout.texture.x,
                                           con->scanout.texture.y,
                                           con->scanout.texture.width,
-@@ -1223,32 +1221,6 @@
-     }
- }
- 
--void console_select(unsigned int index)
--{
--    DisplayChangeListener *dcl;
--    QemuConsole *s;
--
--    trace_console_select(index);
--    s = qemu_console_lookup_by_index(index);
--    if (s) {
--        DisplayState *ds = s->ds;
--
--        active_console = s;
--        if (ds->have_gfx) {
--            QLIST_FOREACH(dcl, &ds->listeners, next) {
--                if (dcl->con != NULL) {
--                    continue;
--                }
--                displaychangelistener_display_console(dcl, s, NULL);
--            }
--        }
--        if (ds->have_text) {
--            dpy_text_resize(s, s->width, s->height);
--        }
--        text_console_update_cursor(NULL);
--    }
--}
--
- struct VCChardev {
-     Chardev parent;
-     QemuConsole *console;
 @@ -1403,11 +1375,6 @@
      }
  }
