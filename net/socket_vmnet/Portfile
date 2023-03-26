@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+
+name                socket_vmnet
+version             1.1.1
+categories          net
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2 LGPL-2.1 BSD-old
+
+description         vmnet.framework support for rootless QEMU
+
+long_description    socket_vmnet provides vmnet.framework support for rootless applications \
+                    such as QEMU.
+
+homepage            http://github.com/lima-vm/socket_vmnet
+master_sites        https://github.com/lima-vm/socket_vmnet/archive/refs/tags/
+
+distfiles           v${version}.tar.gz
+
+checksums           rmd160  69b265250a1d0e0d4f1e73844b7298c15c6ba741 \
+                    sha256  d7c2c9322e38b63e533806b2d92e892a3155fddf175f7bb804fd2ba9087d41cb \
+                    size    18444
+
+depends_lib         port:vde2
+
+use_autoreconf      no
+
+configure {}
+
+build {
+    system -W ${worksrcpath} "make PREFIX=${prefix}"
+}
+
+startupitem.type        launchd
+startupitem.create      yes
+startupitem.executable  "socket_vmnet --vmnet-gateway=10.0.3.1 /var/run/socket_vmnet"
+
+destroot {
+    system -W ${worksrcpath} "make PREFIX=${destroot}${prefix} install.bin install.doc"
+}
+
