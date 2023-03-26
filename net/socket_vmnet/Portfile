@@ -33,10 +33,6 @@ build {
     system -W ${worksrcpath} "make PREFIX=${prefix}"
 }
 
-startupitem.type        launchd
-startupitem.create      yes
-startupitem.executable  "/opt/local/bin/socket_vmnet --vmnet-gateway=10.0.3.1 /var/run/socket_vmnet"
-
 destroot {
     system -W ${worksrcpath} "make PREFIX=${destroot}${prefix} install.bin install.doc"
 }
