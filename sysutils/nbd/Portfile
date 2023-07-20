@@ -12,7 +12,7 @@ description         Network Block Device server
 long_description    Network Block Device server. Only the server is available. \
                     The NBD client does not support Darwin.
 homepage            https://nbd.sourceforge.io/
-master_sites        sourceforge
+master_sites        https://github.com/NetworkBlockDevice/nbd/archive/refs/tags/
 use_xz              yes
 
 depends_build-append  port:pkgconfig
