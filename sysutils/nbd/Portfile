@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+name                nbd
+version             3.25
+categories          sysutils
+license             GPL-2
+platforms           darwin
+maintainers         {mit.edu:quentin @quentinmit} \
+                    openmaintainer
+description         Network Block Device server
+long_description    Network Block Device server. Only the server is available. \
+                    The NBD client does not support Darwin.
+homepage            https://nbd.sourceforge.io/
+master_sites        sourceforge
+use_xz              yes
+
+depends_build-append  port:pkgconfig
+
+depends_lib-append  path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    path:lib/pkgconfig/gnutls.pc:gnutls
+
+checksums           rmd160  9396fbc409072f15e26585a1cf131f4d36462252 \
+                    sha256  f5c8fd0fcb57b1c926594d0e57f356432ee08678bef1d40d088f0830f0cbdd0a \
+                    size    566360
+
+livecheck.type      sourceforge
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}
+
+post-destroot {
+    # The configure script automatically detects that it can't build nbd-client,
+    # but it still installs the manpage.
+    delete ${destroot}${prefix}/share/man/man8/nbd-client.8
+}
