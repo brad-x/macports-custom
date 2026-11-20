@@ -149,10 +149,13 @@ if {${subport} eq ${name}} {
                         port:capstone \
                         port:dtc
 
+        # patches/qemu-10.0.12-utm.patch from UTM (v5.0.8), applied on top of
+        # the release tarball the same way UTM's build does.
         # UTM's Metal SPICE display needs OpenGL (libepoxy), which this build
         # doesn't use; only build it when OpenGL is enabled.
         patch.pre_args  -p1
-        patchfiles      patch-qemu-10-metal-requires-opengl.diff
+        patchfiles      patch-qemu-${version}-utm.diff \
+                        patch-qemu-10-metal-requires-opengl.diff
 
         # libepoxy has no EGL on macOS, but UTM's display code assumes EGL
         # whenever OpenGL is enabled; keep OpenGL off even if libepoxy is installed.
