@@ -1,0 +1,199 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem              1.0
+
+name                    qemu-utm
+categories              emulators
+license                 GPL-2+
+platforms               {darwin >= 21}
+maintainers             nomaintainer
+
+description             Emulator for various architectures, with the UTM patch set
+long_description        QEMU is a generic and open source machine emulator. \
+                        This build uses the QEMU sources maintained by the UTM \
+                        project, which carry patches for Hypervisor.framework, \
+                        SPICE, vmnet and Apple silicon guests.
+
+homepage                https://github.com/utmapp/qemu
+
+# Versioned subports, like qemu-utm@7 / qemu-utm@10 in the Homebrew tap.
+# They install the same files as each other and as qemu, so only one can be
+# installed at a time.
+subport qemu-utm7 {
+    version             7.2.0
+    revision            0
+    use_bzip2           yes
+    checksums           rmd160  51a4b89fb502fdb5efa3c84dbf9ad00f4e5eda42 \
+                        sha256  a972322e476b4cd56319e5e49496e4ec653f226fcbd0b2b4dc38573b8fe776d2 \
+                        size    146257947
+
+    conflicts           qemu qemu-utm10
+}
+
+subport qemu-utm10 {
+    version             10.0.12
+    revision            0
+    use_xz              yes
+    checksums           rmd160  a37eed3ba723a76b166b7add66f0f90119919123 \
+                        sha256  7c9605290b34152debb842e965a55d2e4fbba4793e536ab677b4027e5dc0ba1a \
+                        size    142836072
+
+    conflicts           qemu qemu-utm7
+}
+
+if {${subport} eq ${name}} {
+    # The unversioned name is a pointer to the newest subport.
+    version             10.0.12
+    revision            0
+    replaced_by         qemu-utm10
+    PortGroup           obsolete 1.0
+
+} else {
+    master_sites        https://github.com/utmapp/qemu/releases/download/v${version}-utm/
+    distname            qemu-${version}-utm
+
+    set py_branch       3.14
+    set py_version      [string replace ${py_branch} 1 1]
+
+    depends_build-append \
+                        port:libtool \
+                        port:ninja \
+                        path:bin/pkg-config:pkgconfig \
+                        port:perl5 \
+                        port:spice-protocol
+
+    license_noconflict  perl5
+
+    depends_lib-append  path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                        path:lib/pkgconfig/gnutls.pc:gnutls \
+                        path:lib/pkgconfig/pixman-1.pc:libpixman \
+                        path:include/turbojpeg.h:libjpeg-turbo \
+                        port:bzip2 \
+                        port:libpng \
+                        port:libsdl2 \
+                        port:libslirp \
+                        port:libssh \
+                        port:libusb \
+                        port:lzo2 \
+                        port:ncurses \
+                        port:nettle \
+                        port:snappy \
+                        port:spice-server \
+                        port:usbredir \
+                        port:vde2 \
+                        port:zlib \
+                        port:zstd
+
+    compiler.blacklist  {clang < 1500} {macports-clang-[3-9].*} {macports-gcc-[56]} {*gcc-[34].*}
+
+    if {"${configure.build_arch}" eq "arm64"} {
+        set host_cpu    "aarch64"
+    } else {
+        set host_cpu    "${configure.build_arch}"
+    }
+
+    configure.args      --cpu=${host_cpu} \
+                        --cc=${configure.cc} \
+                        --objcc=${configure.objc} \
+                        --host-cc=${configure.cc} \
+                        --iasl=/usr/bin/false \
+                        --disable-docs \
+                        --disable-bsd-user \
+                        --disable-guest-agent \
+                        --disable-gtk \
+                        --enable-curses \
+                        --enable-hvf \
+                        --enable-libssh \
+                        --enable-libusb \
+                        --enable-sdl \
+                        --enable-slirp \
+                        --enable-spice \
+                        --enable-spice-protocol \
+                        --enable-usb-redir \
+                        --enable-vde \
+                        --enable-virtfs \
+                        --enable-vnc \
+                        --enable-zstd \
+                        --extra-cflags=-DNCURSES_WIDECHAR=1
+
+    # Use 'smbd' installed by samba port, rather than macOS; latter does not work with qemu.
+    configure.args-append \
+                        --smbd=${prefix}/sbin/smbd
+
+    # libtool: unknown option character `-' in: --mode=compile
+    configure.env-append \
+                        LIBTOOL=${prefix}/bin/glibtool
+
+    if {${subport} eq "qemu-utm7"} {
+        depends_build-append \
+                        port:meson
+
+        patch.pre_args  -p1
+        patchfiles      patch-qemu-${version}-utm.diff
+
+        # Matches the Homebrew qemu-utm@7 formula: SDL UI, no Cocoa UI or capstone.
+        # qemu 7.2 rejects --python together with an external --meson.
+        configure.args-append \
+                        --meson=${prefix}/bin/meson \
+                        --disable-cocoa \
+                        --disable-capstone
+    }
+
+    if {${subport} eq "qemu-utm10"} {
+        depends_build-append \
+                        port:python${py_version} \
+                        port:py${py_version}-distlib \
+                        port:py${py_version}-meson
+
+        depends_lib-append \
+                        port:capstone \
+                        port:dtc
+
+        # patches/qemu-10.0.12-utm.patch from UTM (v5.0.8), applied on top of
+        # the release tarball the same way UTM's build does.
+        # UTM's Metal SPICE display needs OpenGL (libepoxy), which this build
+        # doesn't use; only build it when OpenGL is enabled.
+        patch.pre_args  -p1
+        patchfiles      patch-qemu-${version}-utm.diff \
+                        patch-qemu-10-metal-requires-opengl.diff
+
+        # libepoxy has no EGL on macOS, but UTM's display code assumes EGL
+        # whenever OpenGL is enabled; keep OpenGL off even if libepoxy is installed.
+        configure.args-append \
+                        --python=${prefix}/bin/python${py_branch} \
+                        --disable-opengl \
+                        --enable-cocoa \
+                        --enable-capstone \
+                        --enable-fdt=system
+
+        # hw/display/apple-gfx.m: error: 'PGTask_t' is unavailable: obsoleted in macOS 27.0
+        if {${os.platform} eq "darwin" && ${os.major} >= 27} {
+            configure.args-append \
+                        --disable-pvg
+        }
+    }
+
+    pre-configure {
+        configure.args-append --extra-ldflags="${configure.ldflags}"
+        file mkdir ${configure.dir}
+    }
+
+    # qemu does not support in-source-tree builds; see the qemu port.
+    configure.dir       ${workpath}/build
+    configure.cmd       ${worksrcpath}/configure
+    build.dir           ${workpath}/build
+
+    # disable silent rules
+    build.args-append   V=1
+
+    # Default universal variant does not work
+    universal_variant   no
+
+    if {${subport} eq "qemu-utm7"} {
+        livecheck.type  none
+    } else {
+        livecheck.type  regex
+        livecheck.url   https://github.com/utmapp/qemu/releases
+        livecheck.regex qemu-(10(?:\\.\\d+)*)-utm\\.tar
+    }
+}
